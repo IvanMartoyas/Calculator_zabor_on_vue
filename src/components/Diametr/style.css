@@ -1,0 +1,24 @@
+.diametr {
+    
+}
+.diametr .calc__rowItem {
+    width: 250px;
+}
+.diametr__item {
+    min-width: 80px;
+}
+.diametr__img {
+    position: relative;
+}
+.diametr img {
+
+}
+.diametr__items {
+    padding-right: 25px;
+}
+.diametr__label {
+    position: absolute;
+    right: -5px;
+    top: -2px;
+    font-size: 14px;
+}

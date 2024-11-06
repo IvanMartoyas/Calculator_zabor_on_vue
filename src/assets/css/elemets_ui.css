@@ -1,0 +1,61 @@
+.custom_checkbox {
+    height: 22px;
+    width: 22px;
+    background-color: transparent;
+    border: 1px solid var(--bg1);
+    cursor: pointer;
+  }
+  .custom_checkbox div {
+    text-align: center;
+    position: relative;
+    top: -2px;
+  }
+  .custom_checkbox:hover {
+    background: var(--bg1);
+  }
+  .custom_checkbox.active {
+    background: var(--white);
+    border: 1px solid var(--tiker);
+    color: var(--tiker);
+  }
+
+  .custom_radio {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background: #f5f6f6;
+    border: 2px solid #f5f6f6;
+  }
+  .custom_checkbox:hover {
+    background: #f5f6f6;
+  }
+  .custom_radio.active {
+    background: #006f3e;
+    box-shadow: 0 0 1px 1px #006f3e;
+  }
+  
+.element__toolTip {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2rem;
+    z-index: 10;
+    padding: .6rem 1.2rem;
+    color: var(--white);
+    background: #585858;
+    width: max-content;
+    max-width: 200px;
+}
+.element__toolTip--show {
+    display: inline-block;
+    background: var(--bg1);
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    text-align: center;
+}
+.element__toolTip--show:hover .element__toolTip {
+    display: block!important;
+}

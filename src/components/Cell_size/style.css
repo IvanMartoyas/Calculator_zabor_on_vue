@@ -1,0 +1,12 @@
+.cell_size {
+    
+}
+.cell_size .calc__rowItem {
+    width: 250px;
+}
+.cell_size__item {
+    min-width: 80px;
+}
+.cell_size__items {
+    padding-right: 25px;
+}
