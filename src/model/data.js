@@ -15,14 +15,7 @@ export const enum_colors_fences = [ // цвета ограждения
         value: '#d2d2d2',
     },
 ];
-const fixing_panel_post = [
-    {
-        title: 'Крепление для F24',
-        subTitle: 'Кровельный саморез',
-        value: true
-    },
 
-]
 const units_measurement = {
     weight: 29.548, // это вес на 1 пункт выбранном в Длине периметра
 }
@@ -200,9 +193,15 @@ export const _data_calc = { // основные данные
                 },
             ]
         },
-        fixing_panel_post: {
+        fixing_panel_post: { // список креплений забора
             title: 'Крепление панели к столбу',
-            values: fixing_panel_post
+            values: [
+                {
+                    title: 'Крепление для F24',
+                    subTitle: 'Кровельный саморез',
+                    value: true
+                },
+            ]
         },
         colors: enum_colors_fences,
         active_parametrs: {
@@ -269,20 +268,6 @@ export const _data_calc = { // основные данные
             height: 0,
         },
         height: {
-            //Типы распашных ворот количество
-            swing_smart: 0,
-            swing_bars: 0,
-            swing_fance: 0,
-
-            //Типы раздвижных ворот количество
-            sliding_smart: 0,
-            sliding_bars: 0,
-            sliding_fance: 0,
-
-            // ширина раздвижных ворот индекс масива
-            swing_width: 0,
-            // ширина раздвижных ворот индекс масива
-            sliding_width: 0,
             
             title: 'Высота (мм.)',
             values: [1700],
@@ -308,15 +293,22 @@ export const _data_calc = { // основные данные
                 title: 'Green',
                 value: '#008000'
             },
-            //Типы калиток указываетсья количество шт
-            smart: 0,
-            bars: 0,
-            fance: 0,
 
-            // ширина калиток указываеться индекс для выбора нужной ширины
-            opening_width_smart: 0,
-            opening_width_bars: 0,
-            opening_width_fance: 0,
+            //Типы распашных ворот количество
+            swing_smart: 0,
+            swing_bars: 0,
+            swing_fance: 0,
+
+            //Типы раздвижных ворот количество
+            sliding_smart: 0,
+            sliding_bars: 0,
+            sliding_fance: 0,
+
+            // ширина распашных ворот индекс масива
+            swing_width: 0,
+
+            // ширина раздвижных ворот индекс масива
+            sliding_width: 0,
 
             // высота
             height: 0,
@@ -327,18 +319,16 @@ export const _data_calc = { // основные данные
         },
         colors: enum_colors_fences,
 
-        opening_width_smart: {
-            title: 'Ширина проема SMART (мм)',
+        opening_width_swing: {
+            title: 'Ширина распашных ворот, мм.',
             values: [900, 1000, 1100, 1200]
         },
-        opening_width_bars: {
-            title: 'Ширина проема BARS (мм)',
+
+        opening_width_sliding: {
+            title: 'Ширина раздвижных ворот, мм.',
             values: [1000, 1200]
         },
-        opening_width_fance: {
-            title: 'Ширина проема FENCE (мм)',
-            values: [ 1000, 1200]
-        },
+
 
     },
 

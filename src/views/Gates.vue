@@ -8,40 +8,44 @@
                 <div class="calc__content Gates__items Gates__row_params Gates__row">
                     <div>
                         <Block_item
-                            @setValue="setValueSmart"
+                            @setValue="setValueSwing_smart"
                             :title="'SMART'" 
                             :info="'SMART'" 
                             :input="true" 
                             img="_smart.jpg"
-                            :input_data="data.Wickets.active_parametrs.smart"
-                        
+                            :input_data="data.Gates.active_parametrs.swing_smart"
+                            :active_value="true"
                         ></Block_item>
                     </div>
             
                     <div >
                         <Block_item
-                            @setValue="setValueBars"
+                            @setValue="setValueSwing_bars"
                             :title="'BARS'" 
                             :info="'BARS'" 
                             :input="true" 
                             img="_bars.jpg"
-                            :input_data="data.Wickets.active_parametrs.bars"
-                        
+                            :input_data="data.Gates.active_parametrs.swing_bars"
+                            :active_value="true"
                         ></Block_item>
                     </div>
             
                     <div >
                         <Block_item
-                            @setValue="setValueFanse"
+                            @setValue="setValueSwing_fance"
                             :title="'FANSE'" 
                             :info="'FANSE'" 
                             :input="true" 
                             img="_fence.jpg"
-                            :input_data="data.Wickets.active_parametrs.fance"
-                        
+                            :input_data="data.Gates.active_parametrs.swing_fance"
+                            :active_value="true"
                         ></Block_item>
                     </div>
                 </div>
+
+            </div>
+            
+            <div class="calc__rowItem">
 
                 <div class="calc__top calc__row">
                     <div class="calc__title">Раздвижные ворота</div>
@@ -49,47 +53,47 @@
                 <div class="calc__content Gates__items Gates__row_params Gates__row">
                     <div>
                         <Block_item
-                            @setValue="setValueSmart"
+                            @setValue="setValueSliding_smart"
                             :title="'SMART'" 
                             :info="'SMART'" 
                             :input="true" 
                             img="_smart.jpg"
-                            :input_data="data.Wickets.active_parametrs.smart"
-                        
+                            :input_data="data.Gates.active_parametrs.sliding_smart"
+                            :active_value="true"
                         ></Block_item>
                     </div>
             
                     <div >
                         <Block_item
-                            @setValue="setValueBars"
+                            @setValue="setValueSliding_bars"
                             :title="'BARS'" 
                             :info="'BARS'" 
                             :input="true" 
                             img="_bars.jpg"
-                            :input_data="data.Wickets.active_parametrs.bars"
-                        
+                            :input_data="data.Gates.active_parametrs.sliding_bars"
+                            :active_value="true"
                         ></Block_item>
                     </div>
             
                     <div >
                         <Block_item
-                            @setValue="setValueFanse"
+                            @setValue="setValueSliding_fance"
                             :title="'FANSE'" 
                             :info="'FANSE'" 
                             :input="true" 
                             img="_fence.jpg"
-                            :input_data="data.Wickets.active_parametrs.fance"
-                        
+                            :input_data="data.Gates.active_parametrs.sliding_fance"
+                            :active_value="true"
                         ></Block_item>
                     </div>
                 </div>
 
-                <div class="calc__rowItem">
+                <div class="top-padding">
                     <div class="calc__row align-start">
                         <Range_vertical 
-                            :title="data.Wickets.height.title"
-                            :values="data.Wickets.height.values"
-                            :active_value = "this.data.Wickets.active_parametrs.height"
+                            :title="data.Gates.height.title"
+                            :values="data.Gates.height.values"
+                            :active_value = "this.data.Gates.active_parametrs.height"
                             @selectedValue="setHeight"  
                         ></Range_vertical>
                     </div>  
@@ -103,24 +107,24 @@
         <div class="calc__row calc__localRow Gates__row_params">
 
             <Select_list
-                v-if="active_params.smart != 0"
-                :title ="data.Wickets.opening_width_smart.title"
-                :values="data.Wickets.opening_width_smart.values"
-                :active_value = "data.Wickets.active_parametrs.opening_width_smart"
-                @selected_value="selected_smart_value"
+                v-if="active_params.swing_smart != 0 || active_params.swing_bars != 0 || active_params.swing_fance != 0"
+                :title ="data.Gates.opening_width_swing.title"
+                :values="data.Gates.opening_width_swing.values"
+                :active_value = "data.Gates.active_parametrs.swing_width"
+                @selected_value="selected_swing_width_value"
             ></Select_list>
             <Select_list
-                v-if="active_params.bars != 0"
-                :title ="data.Wickets.opening_width_bars.title"
-                :values="data.Wickets.opening_width_bars.values"
-                :active_value = "data.Wickets.active_parametrs.opening_width_bars"
-                @selected_value="selected_bars_value"
+                v-if="active_params.sliding_smart != 0 || active_params.sliding_bars != 0 || active_params.sliding_fance != 0"
+                :title ="data.Gates.opening_width_sliding.title"
+                :values="data.Gates.opening_width_sliding.values"
+                :active_value = "data.Gates.active_parametrs.sliding_width"
+                @selected_value="selected_sliding_width_value"
             ></Select_list>
 
         </div>
 
         
-        <div class="calc__rowItem">
+        <div class="">
             <Color_picker 
                 :colors="data.Gates.colors"
                 :active_color = "data.Gates.active_parametrs.collor_active"
@@ -129,75 +133,69 @@
         </div>
 
  
-        <div class="statistic__row statistic">
+        <div class="statistic__row--wrapper statistic Gates__statistic">
+
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
 
-                <div class="statistic__row" v-if="active_params.smart != 0">
+                <div class="statistic__row" v-if="active_params.swing_smart != 0 || active_params.swing_bars != 0 || active_params.swing_fance != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Количество калиток SMART:</span>
+                            <div class="statistic__param statistic__param--NotDot">
+                                <span class="statistic__paramTitle">Ширина распашных ворот:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ active_params.smart }}</span>
+                                <span class="statistic__paramValue">{{  data.Gates.opening_width_swing.values[active_params.swing_width] }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Ширина проема SMART:</span>
+                            <div class="statistic__param statistic__param--NotDot">
+                                <span class="statistic__paramTitle">Количество распашных ворот:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.Wickets.opening_width_smart.values[active_params.opening_width_smart] }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="statistic__row" v-if="active_params.bars != 0">
-                    <div class="statistic__colom">
-                        <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Количество калиток BARS:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ active_params.bars }}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="statistic__colom">
-                        <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Ширина проема BARS:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.Wickets.opening_width_bars.values[active_params.opening_width_bars] }}</span>
+                                <span class="statistic__paramValue">
+                                    <ul>
+                                        <li  v-if="active_params.swing_smart > 0" >SMART: {{ active_params.swing_smart }} шт.</li>
+                                        <li  v-if="active_params.swing_bars > 0" >BARS:  {{ active_params.swing_bars }}шт.</li>
+                                        <li  v-if="active_params.swing_fance > 0" >FANC:  {{ active_params.swing_fance }}шт.</li>
+                                    </ul>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="statistic__row" v-if="active_params.fance != 0">
+                <div class="statistic__row" v-if="active_params.sliding_smart != 0 || active_params.sliding_bars != 0 || active_params.sliding_fance != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Количество калиток FANCE:</span>
+                            <div class="statistic__param statistic__param--NotDot">
+                                <span class="statistic__paramTitle">Ширина раздвижных ворот:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ active_params.fance }}</span>
+                                <span class="statistic__paramValue">{{ data.Gates.opening_width_sliding.values[active_params.sliding_width] }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Ширина проема FANCE:</span>
+                            <div class="statistic__param statistic__param--NotDot">
+                                <span class="statistic__paramTitle">Количество раздвижных ворот  </span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.Wickets.opening_width_fance.values[active_params.opening_width_fance] }}</span>
+                                <span class="statistic__paramValue">
+                                    <ul>
+                                        <li v-if="active_params.sliding_smart > 0">SMART: {{ active_params.sliding_smart }} шт.</li>
+                                        <li v-if="active_params.sliding_bars  > 0"> BARS:  {{ active_params.sliding_bars }}шт.</li>
+                                        <li v-if="active_params.sliding_fance > 0">FANC:  {{ active_params.sliding_fance }}шт.</li>
+                                    </ul>
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+
               
 
-                <div class="statistic__row">
+                <div class="statistic__row pt-1">
                     <div class="statistic__colom">
                         <div class="statistic__param">
                             <span class="statistic__paramTitle">Высота калитки:</span>
@@ -209,9 +207,11 @@
                         <div class="statistic__param">
                             <span class="statistic__paramTitle">Цвет:</span>
                             <span class="statistic__paramDot"> </span>
-                            <span class="statistic__paramValue--color" 
-                                :style="{backgroundColor: data.Gates.active_parametrs.collor_active.value}" 
-                            ></span>
+                            <div class="statistic__paramValue">
+                                <span class="statistic__paramValue--color" 
+                                    :style="{backgroundColor: data.Gates.active_parametrs.collor_active.value}" 
+                                ></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -258,56 +258,73 @@
         },
         data() {    
             return {
-
             }
         },
         methods: {
+
+            // задаю количество распашных ворот
+            setValueSwing_smart(value){ 
+                this.data.Gates.active_parametrs.swing_smart = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+            setValueSwing_bars(value){ 
+                this.data.Gates.active_parametrs.swing_bars = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+            setValueSwing_fance(value){ 
+                this.data.Gates.active_parametrs.swing_fance = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+
+
+            // задаю количество раздвижных ворот
+            setValueSliding_smart(value){ 
+                this.data.Gates.active_parametrs.sliding_smart = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+            setValueSliding_bars(value){ 
+                this.data.Gates.active_parametrs.sliding_bars = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+            setValueSliding_fance(value){ 
+                this.data.Gates.active_parametrs.sliding_fance = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+      
+            // указываю ширину распашных ворот
+            selected_swing_width_value(value){ 
+                this.data.Gates.active_parametrs.swing_width = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+
+            // указываю ширину раздвижных ворот
+            selected_sliding_width_value(value){ 
+                this.data.Gates.active_parametrs.sliding_width = value;
+                this.$store.dispatch('setData_calc', this.data );
+            },
+
+
+
+
+            // цвет
             selectedColor(value){ 
                 this.data.Gates.active_parametrs.collor_active = value;
                 this.$store.dispatch('setData_calc', this.data );
             },
-            setValueSmart(value){ 
-                this.data.Wickets.active_parametrs.smart = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
-            setValueBars(value){ 
-                this.data.Wickets.active_parametrs.bars = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
-            setValueFanse(value){ 
-                this.data.Wickets.active_parametrs.fance = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
 
-       
-            selected_smart_value(value){ 
-                this.data.Wickets.active_parametrs.opening_width_smart = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
-            selected_bars_value(value){ 
-                this.data.Wickets.active_parametrs.opening_width_bars = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
-            selected_fance_value(value){ 
-                this.data.Wickets.active_parametrs.opening_width_fance = value;
-                this.$store.dispatch('setData_calc', this.data );
-            },
-
+            // ширина
             setHeight(value){ 
-                this.data.Wickets.active_parametrs.height = value;
+                this.data.Gates.active_parametrs.height = value;
                 this.$store.dispatch('setData_calc', this.data );
             },
-            // size_panel_selectedColor(value){ 
-            //     this.data.version_pillar.active_parametrs.collor_active = value;
-            //     this.$store.dispatch('setData_calc', this.data );
-            // },
+
         },
         computed: {
             data() {
                 return this.$store.getters.Data_calc;
             },
             active_params() {
-                return this.$store.getters.Data_calc.Wickets.active_parametrs;
+                return this.$store.getters.Data_calc.Gates.active_parametrs;
             }
         },
     }
@@ -323,5 +340,12 @@
     }
     .Gates__row {
         padding-bottom: 1.5rem;
+    }
+    .Gates__statistic ul {
+        list-style: none;
+        padding: 0;
+    }
+    .Gates__statistic li {
+        padding: .2rem 0;
     }
 </style>

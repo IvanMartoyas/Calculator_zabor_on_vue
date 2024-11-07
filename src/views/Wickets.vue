@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="calc__rowItem">
+                <div class="top-padding">
                     <div class="calc__row align-start">
                         <Range_vertical 
                             :title="data.Wickets.height.title"
@@ -82,7 +82,7 @@
             ></Select_list>
         </div>
 
-        <div class="calc__rowItem">
+        <div class="">
             <Color_picker 
                 :colors="data.Wickets.colors"
                 :active_color = "data.Wickets.active_parametrs.collor_active"
@@ -91,14 +91,14 @@
         </div>
 
  
-        <div class="statistic__row statistic">
+        <div class="statistic__row--wrapper statistic">
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
 
                 <div class="statistic__row" v-if="active_params.smart != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Количество калиток SMART:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ active_params.smart }}</span>
@@ -107,7 +107,7 @@
                     </div>
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Ширина проема SMART:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ data.Wickets.opening_width_smart.values[active_params.opening_width_smart] }}</span>
@@ -119,7 +119,7 @@
                 <div class="statistic__row" v-if="active_params.bars != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Количество калиток BARS:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ active_params.bars }}</span>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Ширина проема BARS:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ data.Wickets.opening_width_bars.values[active_params.opening_width_bars] }}</span>
@@ -140,7 +140,7 @@
                 <div class="statistic__row" v-if="active_params.fance != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Количество калиток FANCE:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ active_params.fance }}</span>
@@ -149,7 +149,7 @@
                     </div>
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param">
+                            <div class="statistic__param statistic__param--NotDot">
                                 <span class="statistic__paramTitle">Ширина проема FANCE:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ data.Wickets.opening_width_fance.values[active_params.opening_width_fance] }}</span>
@@ -171,9 +171,12 @@
                         <div class="statistic__param">
                             <span class="statistic__paramTitle">Цвет:</span>
                             <span class="statistic__paramDot"> </span>
-                            <span class="statistic__paramValue--color" 
-                                :style="{backgroundColor: data.Wickets.active_parametrs.collor_active.value}" 
-                            ></span>
+                            <div class="statistic__paramValue">
+                                <span class="statistic__paramValue--color" 
+                                    :style="{backgroundColor: data.Wickets.active_parametrs.collor_active.value}" 
+                                ></span>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

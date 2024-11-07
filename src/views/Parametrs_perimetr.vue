@@ -6,7 +6,7 @@
 
             <div class="left-part">
                 <div>
-                    <div class="statistic__page">
+                    <div class="statistic__page pr-1">
                   
                             <div class="statistic__params">
                                 <div class="statistic__param">
@@ -14,7 +14,7 @@
                                     <span class="statistic__paramDot"> </span>
                                     <span class="statistic__paramValue">{{ data.fasteners_fence.fasteners_type_fances.values[data.fasteners_fence.active_parametrs.fasteners_type_fances].title}}</span>
                                 </div>
-                                <div class="statistic__param">
+                                <div class="statistic__param statistic__param--NotDo">
                                     <span class="statistic__paramTitle">Цена погонного метра:</span>
                                     <span class="statistic__paramDot"> </span>
                                     <span class="statistic__paramValue">{{ data.fasteners_fence.fixing_panel_post.values[data.fasteners_fence.active_parametrs.fixing_panel_post].title}}</span>
@@ -23,9 +23,11 @@
                                 <div class="statistic__param">
                                     <span class="statistic__paramTitle">Вес (периметра):</span>
                                     <span class="statistic__paramDot"> </span>
-                                    <span class="statistic__paramValue--color" 
-                                        :style="{backgroundColor: data.fasteners_fence.active_parametrs.collor_active.value}" 
-                                    ></span>
+                                    <div class="statistic__paramValue">
+                                        <span class="statistic__paramValue--color" 
+                                            :style="{backgroundColor: data.fasteners_fence.active_parametrs.collor_active.value}" 
+                                        ></span>
+                                    </div>
                                 </div>
 
                         </div>

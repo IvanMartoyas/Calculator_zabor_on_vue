@@ -1,10 +1,6 @@
 <template>
     <div>
-        <div class="calc__row calc__localRow align-start">
-            <div class="calc__rowItem border-right">
-              
-            </div>
-        </div>
+
         <div class="type_fill">
             <div class="calc__rowItem">
                 <div class="calc__top">
@@ -67,7 +63,7 @@
             
         </div>
 
-        <div class="statistic__row  statistic type_fance__statistic">
+        <div class="statistic__row--wrapper  statistic type_fance__statistic">
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
                 <div class="statistic__params">
@@ -92,9 +88,11 @@
                             <div class="statistic__param">
                                 <span class="statistic__paramTitle">Цвет ограждения:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue--color" 
-                                    :style="{backgroundColor: data.Additional_elements_fence.active_parametrs.collor_active.value}" 
-                                ></span>
+                                <div class="statistic__paramValue">
+                                    <span class="statistic__paramValue--color" 
+                                        :style="{backgroundColor: data.Additional_elements_fence.active_parametrs.collor_active.value}" 
+                                    ></span>
+                                </div>
                             </div>
                         </div>
                     </div>

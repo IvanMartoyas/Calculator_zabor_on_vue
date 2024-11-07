@@ -24,7 +24,7 @@ export default {
     props: ['title', 'info', 'input', 'img', 'input_data','active_value'],
     data() {
         return {
-           _active_index: false,
+           _active_index: this.active_value || false,
            _info_hover: this.info_hover || false,
            input_value: this.input_data || 0,
            

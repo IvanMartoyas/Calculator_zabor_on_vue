@@ -3,6 +3,7 @@
     --accent2: #212529;
     --accent3: #f5f6f6;
     --accent4: #f2f2f2;
+    --mobile-menu-width: 220px;
 
     max-width: 1200px;
     margin: 0 auto;
@@ -70,30 +71,34 @@
 
 @media screen and (max-width: 1200px) {
     .tabs__block {
-        display: block;
-        max-width: 900px;
+        /* display: block; */
+        /* max-width: 900px; */
+        grid-template-columns: var(--mobile-menu-width) 1fr;
     }
     .tabContent {
         padding-top: 2rem;
     }
     .tabMenu {
-        width: 0px;
-        overflow: hidden;
-        position: absolute;
+        width: var(--mobile-menu-width);
+        /* overflow: hidden; */
+        /* position: absolute; */
         left: 0;
         right: 0;
         transition: .7s;
         z-index: 7776;
-        border: 1px solid var(--accent2);
+        /* border: 1px solid var(--accent2); */
+    }
+    .tabMenu__item {
+        font-size: 1rem;
     }
     .tabMenu span {
-        width: 320px;
+        width: var(--mobile-menu-width);
     }
     .tabMenu--active {
-        width: 320px;
+        /* width: 250px; */
     }
     .tabMenu__button {
-        display: block;
+        /* display: none; */
     }
     
 }
