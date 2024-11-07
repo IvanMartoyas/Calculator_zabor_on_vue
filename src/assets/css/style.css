@@ -286,6 +286,9 @@ body {
     margin: 0;
     font-size: 15px;
   }
+  .statistic__paramValue  li {
+    padding-right: 5px!important;
+  }
   .statistic__params--line .statistic__paramValue {
     
   }
@@ -423,27 +426,32 @@ body {
       margin: 0;
       flex-basis: 100%;
       align-items: flex-start;
+      display: block;
       flex-wrap: nowrap;
   }
     .statistic__param {
       flex-basis: 100%;
       flex-wrap: nowrap;
       align-items: center;
-      border: 0!important;
       margin-bottom: .5rem;
+      border-bottom: 2px dotted var(--accent2);
     }
     .statistic__paramValue {
       text-align: right;
       flex-basis: 100%;
       text-align: right;
+      max-width: max-content;
     }
     
     .statistic__paramValue ul {
       flex-basis: 100%!important;
+      justify-content: flex-end;
     }
     .statistic__paramValue ul li {
       flex-basis: 33%!important;
-      align-items: flex-start;
+      flex-basis: 40% !important;
+       
+      text-align: right;
     }
   }
 
@@ -464,6 +472,7 @@ body {
       column-gap: 0;
     }
     .statistic__param {
+      border: 0!important;
       flex-basis: 100%!important;
     }
   }

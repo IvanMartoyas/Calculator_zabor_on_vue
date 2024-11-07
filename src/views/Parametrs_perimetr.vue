@@ -5,7 +5,7 @@
         <div class="final-table">
 
             <div class="left-part">
-                <div>
+                <div class="Parametrs_perimetr">
                     <div class="statistic__page pr-1">
                   
                             <div class="statistic__params">
@@ -14,7 +14,7 @@
                                     <span class="statistic__paramDot"> </span>
                                     <span class="statistic__paramValue">{{ data.fasteners_fence.fasteners_type_fances.values[data.fasteners_fence.active_parametrs.fasteners_type_fances].title}}</span>
                                 </div>
-                                <div class="statistic__param statistic__param--NotDo">
+                                <div class="statistic__param statistic__param--NotDot">
                                     <span class="statistic__paramTitle">Цена погонного метра:</span>
                                     <span class="statistic__paramDot"> </span>
                                     <span class="statistic__paramValue">{{ data.fasteners_fence.fixing_panel_post.values[data.fasteners_fence.active_parametrs.fixing_panel_post].title}}</span>
@@ -38,7 +38,7 @@
                     <!-- <input type="text" class="phone_number" v-if="order_call" v-model.number="number_phone"> -->
                 </div>
             </div>
-            <div class="right-part delivery">
+            <div class="right-part delivery top-padding">
                 <div class="delivery__item">
                     <div><div class="custom_radio custom_radio--height" @click="delivery_type = true, setTypeDelivery()" :class="{active: delivery_type}"></div>
                     </div>
@@ -293,13 +293,25 @@ export default {
 
 @media screen and (max-width: 920px) {
     .final-table {
-        display: block;
+        /* display: block; */
+    }
+    .Parametrs_perimetr .statistic__param {
+        border: 0 !important;
+        flex-wrap: wrap;
+    }
+    .Parametrs_perimetr .statistic__paramTitle,
+    .Parametrs_perimetr .statistic__paramValue {
+        display: block!important;
+        flex-basis: 100%!important;
     }
     .left-part, .right-part {
         padding: 0;
-        width: 100%;
-        border: 0;
+        flex-basis: 50%;
+        /* border: 0; */
         margin-bottom: 1rem;
+    }
+    .right-part {
+        padding-left: 1rem;
     }
     .delivery__zone ul {
         list-style: none;

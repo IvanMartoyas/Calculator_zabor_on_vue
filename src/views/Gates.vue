@@ -141,7 +141,7 @@
                 <div class="statistic__row" v-if="active_params.swing_smart != 0 || active_params.swing_bars != 0 || active_params.swing_fance != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param statistic__param--NotDot">
+                            <div class="statistic__param">
                                 <span class="statistic__paramTitle">Ширина распашных ворот:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{  data.Gates.opening_width_swing.values[active_params.swing_width] }}</span>
@@ -168,7 +168,7 @@
                 <div class="statistic__row" v-if="active_params.sliding_smart != 0 || active_params.sliding_bars != 0 || active_params.sliding_fance != 0">
                     <div class="statistic__colom">
                         <div class="statistic__params">
-                            <div class="statistic__param statistic__param--NotDot">
+                            <div class="statistic__param">
                                 <span class="statistic__paramTitle">Ширина раздвижных ворот:</span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">{{ data.Gates.opening_width_sliding.values[active_params.sliding_width] }}</span>

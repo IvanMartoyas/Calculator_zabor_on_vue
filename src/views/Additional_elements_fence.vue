@@ -67,7 +67,7 @@
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
                 <div class="statistic__params">
-                    <div class="calc__row gap-1">
+                    <div class="">
                         <div class="statistic__colom">
                             <div class="statistic__param">
                                 <span class="statistic__paramTitle">Тип крепления:</span>
