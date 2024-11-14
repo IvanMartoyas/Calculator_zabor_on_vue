@@ -16,6 +16,13 @@ export default {
   components: {
     Tab,
     Parametrs_perimetr
+  },
+  mounted() {
+    let _this = this;
+        
+    setTimeout(()=>{
+      _this.$store.dispatch('init_params', _this );
+    }, 300 )
   }
 }
 </script>

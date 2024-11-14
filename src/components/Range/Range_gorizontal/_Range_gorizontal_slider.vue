@@ -99,9 +99,9 @@ export default {
     },
     watch: {
         value(newValue, oldValue) {
-            console.log('value newValue ', newValue )
+            // console.log('value newValue ', newValue )
             this.input_value = newValue;
-            console.log('input_value ', this.input_value )
+            // console.log('input_value ', this.input_value )
         }
     }
 

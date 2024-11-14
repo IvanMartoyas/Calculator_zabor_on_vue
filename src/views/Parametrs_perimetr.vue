@@ -1,5 +1,6 @@
 <template>
-    <div class="calculator-page__third-screen">
+    <Nomeclatura></Nomeclatura>
+    <div class="calculator-page__third-screen wrapper">
 
         <div class="calculator-page__title">Параметры периметра</div>
         <div class="final-table">
@@ -8,33 +9,31 @@
                 <div class="Parametrs_perimetr">
                     <div class="statistic__page pr-1">
                   
-                            <div class="statistic__params">
+                            <div class="">
                                 <div class="statistic__param">
                                     <span class="statistic__paramTitle"> Цена забора:</span>
                                     <span class="statistic__paramDot"> </span>
-                                    <span class="statistic__paramValue">{{ data.fasteners_fence.fasteners_type_fances.values[data.fasteners_fence.active_parametrs.fasteners_type_fances].title}}</span>
+                                    <span class="statistic__paramValue">{{ Statisticks.amount_price.toLocaleString()  }} Руб</span>
                                 </div>
-                                <div class="statistic__param statistic__param--NotDot">
+                                <div class="statistic__param">
                                     <span class="statistic__paramTitle">Цена погонного метра:</span>
                                     <span class="statistic__paramDot"> </span>
-                                    <span class="statistic__paramValue">{{ data.fasteners_fence.fixing_panel_post.values[data.fasteners_fence.active_parametrs.fixing_panel_post].title}}</span>
+                                    <span class="statistic__paramValue">{{ Statisticks.running_meter.toLocaleString()  }} Руб</span>
                                 </div>
                                 
                                 <div class="statistic__param">
                                     <span class="statistic__paramTitle">Вес (периметра):</span>
                                     <span class="statistic__paramDot"> </span>
                                     <div class="statistic__paramValue">
-                                        <span class="statistic__paramValue--color" 
-                                            :style="{backgroundColor: data.fasteners_fence.active_parametrs.collor_active.value}" 
-                                        ></span>
+                                        {{ Math.round(Weight.amount / 1000).toLocaleString() }} Кг
                                     </div>
                                 </div>
 
                         </div>
                     </div>
                 
-                    <input type="checkbox" id="order_call" @click="order_call = !order_call" :checked="order_call">
-                    <label for="order_call">Запросить звонок менеджера для расчета стоимости монтажа</label>
+                    <input class=" pr-1" type="checkbox" id="order_call" @click="order_call = !order_call, setOrder_call()" :checked="order_call">
+                    <label class=" pr-1" for="order_call">Запросить звонок менеджера для расчета стоимости монтажа</label>
                     <!-- <input type="text" class="phone_number" v-if="order_call" v-model.number="number_phone"> -->
                 </div>
             </div>
@@ -82,10 +81,10 @@
             
             </div>
             <div class="btns-wrapper">
-                <button class="reset_settings">
+                <button class="reset_settings" @click="resetButton">
                     Сбросить настройки
                 </button>
-                <button class="make_sale" @click="take_order = true">
+                <button class="make_sale" @click="open_popup()">
                     Оформить заказ
                 </button>
             </div>
@@ -93,21 +92,66 @@
         <div class="textCalc">
             Калькулятор 3D забора онлайн - это удобный инструмент, который позволяет провести расчет забора без лишних трудностей и с минимальными затратами времени. Вам больше не придется путаться в многочисленных параметрах и условиях, вы сможете рассчитать забор, используя калькулятор, прямо у себя дома. Расчет забора онлайн калькулятор предлагает выполнить в несколько этапов. Вам потребуется ввести основные данные о заборе (общие параметры, размер панели, вариант исполнение столба, крепежи, дополнительные элементы, калитки, ворота и общий вид ограждения) и калькулятор автоматически проведет все необходимые расчеты. Все расчеты и цены носят ознакомительный характер, поэтому за полной сметой необходимо обращаться к нашим менеджерам.
         </div>
-        <!-- <dialog :open="take_order" class="order__popup"> 
-            Привет, мир!
-        </dialog> -->
+        <dialog :open="take_order" v-if="take_order" class="popup">
+            <div class="popup__wrapper">
+                <div class="popup__top">
+                    <div class="popup__title">Сделать заказ</div>
+                    <button class="popup__close" @click.prevent="take_order = !take_order">Закрыть</button>
+                </div>
+                <form class="popup__content" action="#" method="post">
+                    <div class="popup__row">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" v-model="form.name" class="popup__input--text" name="name" id="name" placeholder="Ваше имя">
+                    </div>
+                    <div class="popup__row">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" class="popup__input--text" v-model="form.phone" name="phone" id="phone" placeholder="Телефон" required>
+                    </div>
+                    <div class="popup__row">
+                        <label for="massage">Коментарий</label>
+                        <textarea type="tel" class="popup__input--text" v-model="form.massage" name="massage" id="massage" placeholder="Коментарий"></textarea>
+                    </div>
+                    <div class="popup__row">
+                        <input type="checkbox" class="popup__input--checkbox" @click="form_policy_privacy = !form_policy_privacy" :checked="form_policy_privacy" name="policy_chek" required id="policy_chek"> 
+                        <label for="policy_chek"  @click="form_policy_privacy = !form_policy_privacy">Соглашаюсь с <a href="#">обработкой данных</a></label>
+                    </div>
+                    <input type="hidden" v-model="form.calculator_data" name="calculator_data">
+                    <button type="sybmit" class="popup__submit " @click="submit_calc_data()">Заказать</button>
+                </form>
+            </div>                
+                
+                
+            
+        </dialog>
+        
+
     </div>
 </template>
 <script>
+import Nomeclatura from './Nomanclatura.vue';
 
+import { get_params } from '@/assets/js/generate_parametrs_table';
+import { ROUTER_PARAMS } from '@/router/router_queris';
+var __ROUTER_PARAMS = 0;
 export default {
+    components: {
+        Nomeclatura
+    },
     data() {
         return {
             delivery_type: true,// если true то самовывоз
-            number_phone: 0,
             order_call: false, // заказть звонок
             take_order: false,
             zone_index: 0,
+
+            form_policy_privacy: false,
+
+            form: {
+                name: '',
+                phone: 0,
+                massage: '',
+                calculator_data: '',
+            }
         }
     },
     methods: {
@@ -119,17 +163,44 @@ export default {
         setTypeDelivery(){
             this.data.Parametrs_perimetr.active_parametrs.type_delivery = this.delivery_type;
             this.$store.dispatch('setData_calc', this.data );
-           
         },
-        
+        setOrder_call(){
+            this.data.Parametrs_perimetr.active_parametrs.order_call = this.order_call;
+            this.$store.dispatch('setData_calc', this.data );
+        },
+        resetButton() {
+            __ROUTER_PARAMS.reset_url();
+        },
+        get_params() {
+            this.form.calculator_data = get_params(this.data, this.form);
+        },
+        open_popup() {
+            this.take_order = true;
+            this.get_params();
+        },
+        submit_calc_data() {
+            this.get_params();
+        }
     },  
     mounted() {
         this.zone_index = this.data.Parametrs_perimetr.active_parametrs.sellected_zone;
         this.delivery_type = this.data.Parametrs_perimetr.active_parametrs.type_delivery;
+        this.order_call = this.data.Parametrs_perimetr.active_parametrs.order_call || false;
+        
+        __ROUTER_PARAMS = new ROUTER_PARAMS(this);
     },
     computed: {
         data() {
             return this.$store.getters.Data_calc;
+        },
+        Price() {
+            return this.$store.getters.Price;
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
         },
     },
 }
@@ -260,9 +331,7 @@ export default {
     margin-top: 8px;
     box-shadow: 0 0 1px 1px #006f3e;
 }
-/* .custom_radio--height {
-    height: 10px!important;
-} */
+
 .phone_number {
     display: inline-block;
     padding: 0 15px;
@@ -276,20 +345,7 @@ export default {
     margin-left: 25px;
     font-weight: 800;
 }
-.order__popup {
-    position: fixed;
-    width: 450px;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    border-radius: 8px;
-}
-.order__popup::backdrop {
-    width: 100%;
-    height: 100%;
-    background: #006f3e;
-}
+
 
 @media screen and (max-width: 920px) {
     .final-table {
@@ -307,7 +363,7 @@ export default {
     .left-part, .right-part {
         padding: 0;
         flex-basis: 50%;
-        /* border: 0; */
+  
         margin-bottom: 1rem;
     }
     .right-part {
@@ -323,6 +379,28 @@ export default {
     }
     .make_sale {
         margin: 0;
+    }
+}
+@media screen and (max-width: 768px) {
+    .calculator-page__third-screen {
+        padding: 1.5rem;
+    }
+
+    .final-table {
+        padding: 1rem;
+        display: block;
+    }
+    .left-part, .right-part {
+        width: 100%;
+        border: 0;
+    }
+    .delivery {
+        padding: 0;
+        /* width: 100%; */
+    }
+    .btns-wrapper {
+        justify-content: center;
+        gap: 1rem;
     }
 }
 </style>

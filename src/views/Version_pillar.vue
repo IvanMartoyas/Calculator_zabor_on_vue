@@ -13,39 +13,54 @@
                 ></Img_select>
             </div> 
         </div>
-
-        <div class="calc_row">
-            <div class="calc__localRow">
+        <div class="calc__row">
+            <div class="calc__rowItem">
+                <Range_vertical 
+                    :title="data.version_pillar.height.title"
+                    :values="data.version_pillar.height.values"
+                    :active_value = "data.version_pillar.active_parametrs.height_post || 1"
+                    @selectedValue="selected_height"  
+                ></Range_vertical>
+            </div>
+        </div>
+        <div class="calc__row calc__localRow align-start">
+            <div class="">
+                <!-- сечение столба -->
                 <Cell_size
+                    :key="data.version_pillar.active_parametrs.sechenie_pillar"
                     :title="data.version_pillar.sechenie_pillar.title"
                     :values="data.version_pillar.sechenie_pillar.values"
                     :active_value="data.version_pillar.active_parametrs.sechenie_pillar"
                     @selectedCell_size="sechenie_pillar_value"
                 ></Cell_size>
             </div>
-            <div class="calc__localRow">
+            <div class="">
+                <!-- толщина стенки -->
                 <Cell_size
+                    :key="data.version_pillar.active_parametrs.weight_wall"
                     :title="data.version_pillar.weight_wall.title"
-                    :values="data.version_pillar.weight_wall.values"
+                    :values="data.version_pillar.weight_wall.values[data.version_pillar.active_parametrs.sechenie_pillar]"
                     :active_value="data.version_pillar.active_parametrs.weight_wall"
                     @selectedCell_size="post_cover_value"
                 ></Cell_size>
             </div>
-            <div class="calc__rowItem calc__localRow align-start stolb">
-                <div class="calc__top">
-                    <div class="calc__title">Крышка для столба</div>
-                </div>
-                <div class="calc__content calc__row">
-                    <div class="cell_size__img">
-                        <img src="@/assets/img/stolb.png" alt="reyki">
-                    </div>
-                    <div class="stolb__chack"  @click="setStolb">
-                        <label for="stolb1"  @click="setStolb">Крышка для столба</label>
-                        <input type="checkbox" id="stolb1" :checked="data.version_pillar.active_parametrs.post_cover">
-                    </div>
-                </div>
-            </div>   
         </div>
+
+        <div class="calc__rowItem calc__localRow align-start stolb">
+            <div class="calc__top">
+                <div class="calc__title">Крышка для столба</div>
+            </div>
+            <div class="calc__content calc__row">
+                <div class="cell_size__img">
+                    <img src="@/assets/img/stolb.png" alt="reyki">
+                </div>
+                <div class="stolb__chack"  @click="setStolb">
+                    <label for="stolb1"  @click="setStolb">Крышка для столба</label>
+                    <input type="checkbox" id="stolb1" :checked="data.version_pillar.active_parametrs.post_cover">
+                </div>
+            </div>
+        </div>   
+       
 
  
 
@@ -59,7 +74,7 @@
             
         </div>
         
-        <div class="statistic__row--wrapper  statistic type_fance__statistic">
+        <div class="statistic__row--fluid statistic type_fance__statistic">
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
                 <div class="statistic__params">
@@ -71,9 +86,9 @@
                                 <span class="statistic__paramValue">{{ data.version_pillar.type_post.values[data.version_pillar.active_parametrs.type_post_index].title}}</span>
                             </div>
                             <div class="statistic__param">
-                                <span class="statistic__paramTitle">Высота:</span>
+                                <span class="statistic__paramTitle">Высота столба:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.version_pillar.height.values[data.version_pillar.active_parametrs.height_fance] / 1000 }}М</span>
+                                <span class="statistic__paramValue">{{ data.version_pillar.height.values[data.version_pillar.active_parametrs.height_post] / 1000 }}М</span>
                             </div>
                             
                             <div class="statistic__param">
@@ -86,7 +101,7 @@
                             <div class="statistic__param">
                                 <span class="statistic__paramTitle">Толщина стенки столба:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.version_pillar.weight_wall.values[data.version_pillar.active_parametrs.weight_wall]}} MM.</span>
+                                <span class="statistic__paramValue">{{ data.version_pillar.weight_wall.values[data.version_pillar.active_parametrs.sechenie_pillar][data.version_pillar.active_parametrs.weight_wall]}} MM.</span>
                             </div>
                             <div class="statistic__param">
                                 <span class="statistic__paramTitle">Крышка для столба:</span>
@@ -98,31 +113,49 @@
                                 <span class="statistic__paramDot"> </span>
                                 <div class="statistic__paramValue">
                                     <span class="statistic__paramValue--color" 
-                                        :style="{backgroundColor: data.version_pillar.active_parametrs.collor_active.value}" 
-                                    ></span>    
+                                        :style="{backgroundColor: data.version_pillar.colors[data.version_pillar.active_parametrs.collor_active].value}" 
+                                    ></span> 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="statistic__colom">
+            <div class="statistic__colom statistic__colom--values">
                 <div class="statistic__title">Стоимость</div>
                 <div class="statistic__values">
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
-                    <div class="statistic__valuesRow">
-                        <div class="statistic__valuesTitle">Цена панели:</div>
+                    <div>
+                      
+                        <div class="statistic__valuesRow"  >
+                        <div class="statistic__valuesTitle">Цена столба:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value">
+                          
+                            <span>
+                                {{                                 
+                                    Price.post.getData( 'cost',
+                                        this.data.version_pillar.active_parametrs.height_post,
+                                        this.data.version_pillar.active_parametrs.sechenie_pillar,
+                                        this.data.version_pillar.active_parametrs.weight_wall,
+                                    ).toLocaleString()
+                                }} Руб
+                            </span>
+                        </div>
+                    </div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -151,13 +184,24 @@ export default {
     },
     data() {    
         return {
-           
+        
         }
     },
     computed: {
         data() {
             return this.$store.getters.Data_calc;
         },
+        Price() {
+            return this.$store.getters.Price;
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
+        },
+    },
+    mounted() {
     },
     methods: {
         size_panel_selectedColor(value){ 
@@ -174,10 +218,25 @@ export default {
         },
         sechenie_pillar_value(val) {
             this.data.version_pillar.active_parametrs.sechenie_pillar = val;
+
+            // массив с сечением столба зависит от толщины стенки столба и нужно чтобы
+            // если в одном масиве был выбран нулевой индекс то и в другом я тоже автоматически выставлял нулевой индекс
+            let array = this.data.version_pillar.weight_wall.values[this.data.version_pillar.active_parametrs.sechenie_pillar];
+
+            if(array.length == 1) {
+                this.data.version_pillar.active_parametrs.weight_wall = 0;
+                this.$store.dispatch('setData_calc', this.data );
+            } 
             this.$store.dispatch('setData_calc', this.data );
+       
         },
         post_cover_value(val) {
             this.data.version_pillar.active_parametrs.weight_wall = val;
+            this.$store.dispatch('setData_calc', this.data );
+            
+        },
+        selected_height(val) {
+            this.data.version_pillar.active_parametrs.height_post = val;
             this.$store.dispatch('setData_calc', this.data );
         },
         setStolb() {

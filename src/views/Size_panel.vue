@@ -8,12 +8,12 @@
                 <div class="calc__top calc__row">
                     <div class="calc__title">Длина секции (мм).</div>
                 </div>
-                <div class="calc__content">
+                <div class="calc__content">                 
                     <div 
                         class="btn btn-item"
                         v-for="(item ,i) in data.size_panel.section_size" 
                         :key="item" 
-                        :class="{active: (i == data.size_panel.active_parametrs.section_size_value)}"
+                        :class="{active: (i == (data.size_panel.active_parametrs.section_size_value || 0))}"
                         @click="setSizeSection(i)"
                     >
                         {{ item }}
@@ -34,13 +34,11 @@
  import TexOgrada from '@/components/Type_fance/_Type_fance_texOgrada.vue';
 
  import Color_picker from '@/components/Colors/Color-picker.vue';
- import Range_gorizontal from '@/components/Range/Range_gorizontal/Range_gorizontal.vue';
  import Range_vertical from '@/components/Range/Range_vertical/Range_vertical.vue';
 
 export default {
     components: {
         Color_picker,
-        Range_gorizontal,
         Range_vertical,
 
         Type_fance,
@@ -51,10 +49,10 @@ export default {
     data() {    
         return {
             componentId: 'Type_fance_3D',
-            
         }
     },
     mounted() {
+
         let index = this.data.size_panel.active_parametrs.type_fance_index || 0;
         if(index == 0 ) {
             this.componentId = 'Type_fance_3D';
@@ -64,7 +62,7 @@ export default {
         }
         if(index == 2 ) {
             this.componentId = 'TexOgrada';
-        }
+        }      
     },
     computed: {
         data() {
@@ -72,18 +70,16 @@ export default {
         },
         type_fance_index() {
             return this.$store.getters.Data_calc.size_panel.active_parametrs.type_fance_index;
-        }
+        },
+
     },
     methods: {
-        size_panel_selectedColor(value){ 
-            this.data.size_panel.active_parametrs.collor_active = value;
-            this.$store.dispatch('setData_calc', this.data );
-        },
+
         setSizeSection(index) { // сохраняет длинну секции
             this.data.size_panel.active_parametrs.section_size_value = index;
             this.$store.dispatch('setData_calc', this.data );
         },
-
+  
     },
     watch: {
         type_fance_index(newData, oldData) {

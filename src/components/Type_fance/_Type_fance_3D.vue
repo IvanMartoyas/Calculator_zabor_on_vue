@@ -52,7 +52,7 @@
                             <div class="statistic__param">
                                 <span class="statistic__paramTitle">Высота столба:</span>
                                 <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.general_parameters.height_fance.values[data.general_parameters.active_parametrs.height_fance] / 1000 }}</span>
+                                <span class="statistic__paramValue">{{ data.size_panel.height.values[data.size_panel.active_parametrs.height_fance] / 1000 }}</span>
                             </div>
                             
                             <div class="statistic__param">
@@ -77,7 +77,7 @@
                                 <span class="statistic__paramDot"> </span>
                                 <div class="statistic__paramValue">
                                     <span class="statistic__paramValue--color" 
-                                        :style="{backgroundColor: data.size_panel.active_parametrs.collor_active.value}" 
+                                        :style="{backgroundColor: data.size_panel.colors[data.size_panel.active_parametrs.collor_active].value}" 
                                     ></span>
                                 </div>
                             </div>
@@ -91,17 +91,21 @@
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена панели:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>{{ Price.panel.height[data.general_parameters.active_parametrs.height_fance].cost.toLocaleString() }} Руб</span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                           от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -110,6 +114,7 @@
     </div>
 </template>
 <script>
+
  import Color_picker from '@/components/Colors/Color-picker.vue';
  import Range_gorizontal from '@/components/Range/Range_gorizontal/Range_gorizontal.vue';
  import Range_vertical from '@/components/Range/Range_vertical/Range_vertical.vue';
@@ -126,11 +131,9 @@ export default {
     },
     data() {    
         return {
-           
         }
     },
     mounted() {
-
     },
     computed: {
         data() {
@@ -138,7 +141,16 @@ export default {
         },
         type_fance_index() {
             return this.$store.getters.Data_calc.size_panel.active_parametrs.type_fance_index;
-        }
+        },
+        Price() {
+            return this.$store.getters.Price;
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
+        },
     },
     methods: {
         setFanceType(index) {
@@ -153,15 +165,16 @@ export default {
             this.$store.dispatch('setData_calc', this.data );
         },
         selectedDiametr(val) {
-            console.log("selectedCell_size ",val)
+            // console.log("selectedCell_size ",val)
             this.data.size_panel.type_fance[0].params.selected_data.diameter_index = val;
             this.$store.dispatch('setData_calc', this.data );
         },
         selectedCell_size(val) {
-            console.log("selectedCell_size ",val)
+            // console.log("selectedCell_size ",val)
             this.data.size_panel.type_fance[0].params.selected_data.cell_size_index = val;
             this.$store.dispatch('setData_calc', this.data );
         },
+
     }
 }
 </script>

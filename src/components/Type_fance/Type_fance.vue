@@ -3,7 +3,7 @@
         <div class="calc__top calc__row">
             <div class="calc__title">Тип забора</div>
         </div>
-        <div class="calc__content">
+        <div class="calc__content" :key="this.data.size_panel.active_parametrs.type_fance_index">
             <div class="typeFance">
                 <div class="typeFance__item" @click="setFanceType(0)" :class="{active: fance_active == 0}">
                     <div class="typeFance__img"><img src="@/assets/img/8d03b5953f34f083ce084aebf3a1f130.jpg" alt="3Д забор "></div>
@@ -11,7 +11,6 @@
                         3Д забор <i class="element__toolTip--show"> ?
                             <span class="element__toolTip">Панель с V- образными изгибами</span>
                         </i>
-                        
                     </div>
                 </div>
                 <div class="typeFance__item" @click="setFanceType(1)" :class="{active: fance_active == 1}">
@@ -54,19 +53,10 @@ export default {
     data() {    
         return {
             fance_active: 0,
-             
         }
     },
     mounted() {
-   
-    },
-    computed: {
-        data() {
-            return this.$store.getters.Data_calc;
-        },
-        menu() {
-            return this.$store.getters.Menu_items;
-        }
+        this.setFanceType(this.$store.getters.Data_calc.size_panel.active_parametrs.type_fance_index)
     },
     methods: {
         setFanceType(index) {
@@ -75,7 +65,6 @@ export default {
 
             let menu = this.$store.getters.Menu_items;
             if(index == 2) {
-
                 menu[3].active = false;
                 this.$store.dispatch('menu_items', menu );
             } else {
@@ -86,12 +75,20 @@ export default {
         setType_fance_index(index) { // сохраняет выбраный тип забора
             this.data.size_panel.active_parametrs.type_fance_index = index;
             this.$store.dispatch('setData_calc', this.data );
-        }
+        },
     },
     computed: {
         data() {
             return this.$store.getters.Data_calc;
-        }
+        },
+        type_index() {
+         
+            this.setFanceType(this.$store.getters.Data_calc.size_panel.active_parametrs.type_fance_index)
+            return this.$store.getters.Data_calc.size_panel.active_parametrs.type_fance_index;
+        },
+        menu() {
+            return this.$store.getters.Menu_items;
+        },
     },
 }
 </script>

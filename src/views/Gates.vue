@@ -14,7 +14,7 @@
                             :input="true" 
                             img="_smart.jpg"
                             :input_data="data.Gates.active_parametrs.swing_smart"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
             
@@ -26,7 +26,7 @@
                             :input="true" 
                             img="_bars.jpg"
                             :input_data="data.Gates.active_parametrs.swing_bars"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
             
@@ -38,7 +38,7 @@
                             :input="true" 
                             img="_fence.jpg"
                             :input_data="data.Gates.active_parametrs.swing_fance"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                             :input="true" 
                             img="_smart.jpg"
                             :input_data="data.Gates.active_parametrs.sliding_smart"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
             
@@ -71,7 +71,7 @@
                             :input="true" 
                             img="_bars.jpg"
                             :input_data="data.Gates.active_parametrs.sliding_bars"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
             
@@ -83,7 +83,7 @@
                             :input="true" 
                             img="_fence.jpg"
                             :input_data="data.Gates.active_parametrs.sliding_fance"
-                            :active_value="true"
+                            :active_value="false"
                         ></Block_item>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                                 <span class="statistic__paramValue">
                                     <ul>
                                         <li  v-if="active_params.swing_smart > 0" >SMART: {{ active_params.swing_smart }} шт.</li>
-                                        <li  v-if="active_params.swing_bars > 0" >BARS:  {{ active_params.swing_bars }}шт.</li>
+                                        <li  v-if="active_params.swing_bars > 0" >BARS:  {{  active_params.swing_bars }}шт.</li>
                                         <li  v-if="active_params.swing_fance > 0" >FANC:  {{ active_params.swing_fance }}шт.</li>
                                     </ul>
                                 </span>
@@ -178,7 +178,7 @@
                     <div class="statistic__colom">
                         <div class="statistic__params">
                             <div class="statistic__param statistic__param--NotDot">
-                                <span class="statistic__paramTitle">Количество раздвижных ворот  </span>
+                                <span class="statistic__paramTitle">Количество раздвижных ворот: </span>
                                 <span class="statistic__paramDot"> </span>
                                 <span class="statistic__paramValue">
                                     <ul>
@@ -209,8 +209,8 @@
                             <span class="statistic__paramDot"> </span>
                             <div class="statistic__paramValue">
                                 <span class="statistic__paramValue--color" 
-                                    :style="{backgroundColor: data.Gates.active_parametrs.collor_active.value}" 
-                                ></span>
+                                    :style="{backgroundColor: data.Gates.colors[data.Gates.active_parametrs.collor_active].value}" 
+                                ></span> 
                             </div>
                         </div>
                     </div>
@@ -225,17 +225,16 @@
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
-                    </div>
-                    <div class="statistic__valuesRow">
-                        <div class="statistic__valuesTitle">Цена панели:</div>
-                        <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -325,7 +324,13 @@
             },
             active_params() {
                 return this.$store.getters.Data_calc.Gates.active_parametrs;
-            }
+            },
+            Statisticks () {
+                return this.$store.getters.Statisticks;
+            },
+            Weight () {
+                return this.$store.getters.Weight;
+            },
         },
     }
 </script>
@@ -347,5 +352,11 @@
     }
     .Gates__statistic li {
         padding: .2rem 0;
+    }
+    @media screen and (max-width: 768px) {
+        .Gates__row  {
+            display: flex;
+            gap: .2rem!important;
+        }
     }
 </style>

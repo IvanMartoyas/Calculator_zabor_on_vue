@@ -284,7 +284,46 @@ input[type=range]  {
 
     align-items: flex-end;
 }
+@media screen and (max-width: 980px) {
+  .range_vertical {
+    margin-left: 1.7rem;
+  }
+  .range_vertical__line {
+    width: 13px;
+  }
+  .range_vertical__label {
+    font-size: 13px;
+  }
+  .img_range {
+    max-width: 70px;
+    margin-right: -15px;
+  }
+  .range_vertical .tooltip {
+    width: 15px;
+    height: 15px;
+    font-size: 13px;
+  }
+  .range_vertical .tooltip::after {
+    width: 18px;
+    height: 18px;
+    left: 20px;
+    top: 8px;
+  }
+}
 /* range-end */
+@media screen and (max-width:768px) {
+  .range_vertical {
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+  }
+  .img_range {
+    width: 80px;
+    margin-bottom: 2rem;
+  }
+  .range__labels {
+    display: none!important;
+  }
+}
 @media screen and (max-width: 540px) {
   .range__labels  {
     display: none;

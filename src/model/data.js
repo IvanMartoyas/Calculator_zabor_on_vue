@@ -1,17 +1,17 @@
 export const enum_colors_fences = [ // цвета ограждения 
     {
         id: 0,
-        title: 'Green',
+        title: 'RAL 6005',
         value: '#008000'
     },
     {
         id: 1,
-        title: 'Reed',
+        title: 'RAL 8017',
         value: '#73140b'
     },
     {
         id: 2,
-        title: 'Gray',
+        title: 'Цинк    ',
         value: '#d2d2d2',
     },
 ];
@@ -22,6 +22,9 @@ const units_measurement = {
 
 export const _data_calc = { // основные данные
     general_parameters: { // ообщие параметры
+        panel: {
+            width_mm: 2500,// mm
+        },
         colors: enum_colors_fences,
         size_perimetr: {
             title: 'Длина периметра (м).',
@@ -39,17 +42,13 @@ export const _data_calc = { // основные данные
             values: [
                 2430,
                 2030,
-                1530,
                 1730,
+                1530,
             ]
         },
         active_parametrs: { // сюда сохраняю выбранные значения
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
-            size_perimetr: 350,
+            collor_active: 0,
+            size_perimetr: 1,
             height_fance: 1,
         }
     },
@@ -119,17 +118,13 @@ export const _data_calc = { // основные данные
             ]
         },
         section_size: [
-            2500,
+            2500
         ],
         colors: enum_colors_fences,
         active_parametrs: {
             type_fance_index: 0,
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
-            section_size_value: 0, // блина секции
+            collor_active: 0,
+            section_size_value: 0, // длина секции
             height_fance: 0,
         }
     },
@@ -150,37 +145,42 @@ export const _data_calc = { // основные данные
         height: {
             title: 'Высота (мм.)',
             values:  [
-                2430,
-                2030,
-                1730,
-                1530,                             
+                3000,
+                2400,
+                2000,
+                1800,                             
             ]
         },
-        sechenie_pillar: { // 
+        sechenie_pillar: {
             title: 'Сечение столба (мм.)',
             values: ['60х40','60х60','80х80']
         },
         weight_wall: { // 
             title: 'Тощина стенки столба (мм.)',
-            values: ['1.5']
+            values: [
+                ['1.5'],
+                ['1.5','2.0'],
+                ['2.0'],
+            ]
         },
         post_cover: {
             title: 'Крышка для столба',
-            value: true
+            value: true,
+            weight: [ // грамм
+                20,
+                30,
+                40
+            ]
         },
         colors: enum_colors_fences,
 
         active_parametrs: {
+            height_post: 1,
             type_post_index: 0,
-            height_fance: 0,
             sechenie_pillar: 0,
             weight_wall: 0,
             post_cover: true,
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
+            collor_active: 0,
         }
     },
     fasteners_fence: { // крепежи забора
@@ -207,11 +207,7 @@ export const _data_calc = { // основные данные
         active_parametrs: {
             fasteners_type_fances: 0,
             fixing_panel_post: 0,
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
+            collor_active: 0,
         }
     },
     Additional_elements_fence: {// дополнительные элементы ограждения
@@ -221,11 +217,7 @@ export const _data_calc = { // основные данные
                 type: 'СББ',
                 width: 0,
             },
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
+            collor_active: 0,
             L_nasadca: 0,
         },
         type_filling: {
@@ -246,14 +238,9 @@ export const _data_calc = { // основные данные
             ]
         }
     },
-    Wickets: {
-        
+    Wickets: { 
         active_parametrs: {
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
+            collor_active: 0,
             //Типы калиток указываетсья количество шт
             smart: 0,
             bars: 0,
@@ -288,25 +275,20 @@ export const _data_calc = { // основные данные
     },
     Gates: {
         active_parametrs: {
-            collor_active: {
-                id: 0,
-                title: 'Green',
-                value: '#008000'
-            },
+            collor_active: 0,
 
             //Типы распашных ворот количество
             swing_smart: 0,
             swing_bars: 0,
             swing_fance: 0,
+            // ширина распашных ворот индекс масива
+            swing_width: 0,
+
 
             //Типы раздвижных ворот количество
             sliding_smart: 0,
             sliding_bars: 0,
             sliding_fance: 0,
-
-            // ширина распашных ворот индекс масива
-            swing_width: 0,
-
             // ширина раздвижных ворот индекс масива
             sliding_width: 0,
 
@@ -321,39 +303,39 @@ export const _data_calc = { // основные данные
 
         opening_width_swing: {
             title: 'Ширина распашных ворот, мм.',
-            values: [900, 1000, 1100, 1200]
+            values: [3500, 4000, 4500, 5000, 5500, 6000]
         },
 
         opening_width_sliding: {
             title: 'Ширина раздвижных ворот, мм.',
-            values: [1000, 1200]
+            values: [4000, 4500, 5000, 5500, 6000]
         },
 
 
     },
 
-
-
-
-
-    
     Parametrs_perimetr: { // общие параметры
         active_parametrs: {
             sellected_zone: 0,
             type_delivery: false,
+            order_call: false
         },
         zone: [// зоны доставки
             {
                 title: 'Зона 1 - 3500 рублей',
+                value: 'Зона 1'
             },
             {
                 title: 'Зона 2 - 4700 рублей',
+                value: 'Зона 2'
             },
             {
                 title: 'Зона 3 - 6100 рублей',
+                value: 'Зона 3'
             },
             {
                 title: 'Зона 4 - 7300 рублей',
+                value: 'Зона 4'
             },
         ]
     }

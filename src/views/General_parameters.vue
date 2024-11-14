@@ -1,12 +1,11 @@
 <template>
-    <div>
-        
+    <div v-if="loader" >
         <div class="calc__row calc__localRow align-start">
             <div class="calc__rowItem border-right ">
                 <Range_gorizontal
                     :title="'Длина периметра (м).'"
                     @selectedValue="selectedPerimetrValue"
-                    :value="data.general_parameters.size_perimetr.value.val"
+                    :value="data.general_parameters.active_parametrs.size_perimetr"
                     :min="data.general_parameters.size_perimetr.value.min"    
                     :max="data.general_parameters.size_perimetr.value.max"    
                     :step="data.general_parameters.size_perimetr.value.step"    
@@ -25,11 +24,11 @@
         <div class="">
             <Color_picker 
                 :colors="data.general_parameters.colors"
-                :active_color = "data.size_panel.active_parametrs.collor_active"
+                :active_color = "data.general_parameters.active_parametrs.collor_active"
                 @selected_color="selectedColor"
             />
         </div>
-        <div class="statistic__row--wrapper statistic">
+        <div class="statistic__row--fluid statistic">
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
                 <div class="statistic__params">
@@ -48,31 +47,34 @@
                         <span class="statistic__paramDot"> </span>
                         <div class="statistic__paramValue">
                             <span class="statistic__paramValue--color" 
-                                :style="{backgroundColor: data.general_parameters.active_parametrs.collor_active.value}" 
+                                :style="{backgroundColor: data.general_parameters.colors[data.general_parameters.active_parametrs.collor_active].value}" 
                             ></span>
                         </div>
-
                         
                     </div>
                 </div>
             </div>
-            <div class="statistic__colom">
+            <div class="statistic__colom statistic__colom--values">
                 <div class="statistic__title">Стоимость</div>
                 <div class="statistic__values">
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена панели:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>{{ Price.panel.height[data.general_parameters.active_parametrs.height_fance].cost.toLocaleString() }} Руб</span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -80,9 +82,10 @@
     </div>
 </template>
 <script>
-import Color_picker from '@/components/Colors/Color-picker.vue';
+ import Color_picker from '@/components/Colors/Color-picker.vue';
  import Range_gorizontal from '@/components/Range/Range_gorizontal/Range_gorizontal.vue';
  import Range_vertical from '@/components/Range/Range_vertical/Range_vertical.vue';
+
 
 export default {
     components: {
@@ -92,36 +95,88 @@ export default {
     },
     data() {    
         return {
-        
+            loader: false
         }
     },
-    mounted() {
-        
-        // console.log('this.data ',this.data.general_parameters.colors)
+    async mounted() {
+        let _this = this;
+
+        let test = await this.$store.getters.get_perimetr;
+             console.log("test ",test)
+        // this.data.general_parameters.active_parametrs.size_perimetr = test;
+        // this.$store.dispatch('setData_calc', this.data );
+
+        setTimeout(()=>{
+            // при первой загрузке должны загрузиться данные из ulr, 
+            // после этого нужно посчитать количество панелей вслед за инззменением данных 
+            // заработает расчёт статистики и веса
+            _this.Price.panel.count = Math.round((_this.data.general_parameters.active_parametrs.size_perimetr *1000) / _this.Price.panel.width_mm)
+            _this.loader = true;
+        },400);
     },
     computed: {
         data() {
             return this.$store.getters.Data_calc;
-        }
+        },
+        Price() {
+            return this.$store.getters.Price;
+        },
+        active_params() {
+            // можно сюда вставить, но поле при загрузке несколько раз отрабатывает
+            return this.$store.getters.Data_calc.general_parameters.active_parametrs;
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
+        },
     },
     methods: {
         selectedColor(value){ 
             this.data.general_parameters.active_parametrs.collor_active = value;
             this.$store.dispatch('setData_calc', this.data );
+            
         },
-        selectedPerimetrValue(value){ 
-            // console.log("selectedPerimetrValue 321",value)
-            this.data.general_parameters.active_parametrs.size_perimetr = value;
+        selectedPerimetrValue(perimetr){ 
+            this.data.general_parameters.active_parametrs.size_perimetr = perimetr;
             this.$store.dispatch('setData_calc', this.data );
+ 
+            if((perimetr * 1000) < this.Price.panel.width_mm) {
+                this.Price.panel.count = 1;
+                this.$store.dispatch('setPrice', this.Price );
+            } else {  // расчитывает количество панелей
+                let count_panels = Math.round(((perimetr * 1000) / this.Price.panel.width_mm));
+                this.Price.panel.count = count_panels;
+                this.$store.dispatch('setPrice', this.Price );
+            }
         },
         selected_height_fance_Value(index) {
             this.data.general_parameters.active_parametrs.height_fance = index;
             this.$store.dispatch('setData_calc', this.data );
-        }
+        },
     }
 }
 </script>
 <style>
-
+.table_result {
+    font-size: 15px;
+    font-weight: 300;
+}
+.table_result__head {
+    font-size: 17px;
+    font-weight: 700;
+}
+.table_result__content {
+}
+.table_result__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.table_result__label {
+}
+.table_result__value {
+}
 
 </style>

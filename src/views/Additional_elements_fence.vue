@@ -10,28 +10,28 @@
                     <div class="type_fill__items">
 
                         <div class="type_fill__item">
-                            <div class="type_fill__img">
+                            <div class="type_fill__img" @click="setWidth('СББ')">
                                 <img :src="require('../assets/img/setka1.jpg')" alt="Тип заполнения">
                             </div>
                             <div class="type_fill__checkBlock">
-                                <div @click="sbb_check = !sbb_check, pbb_check = false" class="custom_checkbox type_fill__checkbox" :class="{active: sbb_check}">
+                                <div @click="sbb_check = !sbb_check, pbb_check = false, setWidth('СББ')" class="custom_checkbox type_fill__checkbox" :class="{active: sbb_check}">
                                     <div v-if="sbb_check">&#x2713;</div>
                                 </div>
-                                <div @click="sbb_check = !sbb_check, pbb_check = false" class="type_fill__title">СББ</div>
+                                <div @click="sbb_check = !sbb_check, pbb_check = false, setWidth('СББ')" class="type_fill__title">СББ</div>
                                 <div class="type_fill__width" v-if="sbb_check">
                                     Длинна <input type="text" @input.prevent="setWidth('СББ')" v-model.number="width"  class="calc__fild" > м.
                                 </div>
                             </div>
                         </div>
                         <div class="type_fill__item">
-                            <div class="type_fill__img">
+                            <div class="type_fill__img" @click="setWidth('ПББ')">
                                 <img :src="require('../assets/img/setka2.jpg')" alt="Тип заполнения">
                             </div>
                             <div class="type_fill__checkBlock">
-                                <div @click="pbb_check = !pbb_check, sbb_check = false" class="custom_checkbox type_fill__checkbox" :class="{active: pbb_check}">
+                                <div @click="pbb_check = !pbb_check, sbb_check = false, setWidth('ПББ')" class="custom_checkbox type_fill__checkbox" :class="{active: pbb_check}">
                                     <div v-if="pbb_check">&#x2713;</div>
                                 </div>
-                                <div @click="pbb_check = !pbb_check, sbb_check = false" class="type_fill__title">ПББ</div>
+                                <div @click="pbb_check = !pbb_check, sbb_check = false, setWidth('ПББ')" class="type_fill__title">ПББ</div>
                                 <div class="type_fill__width" v-if="pbb_check">
                                     Длинна <input type="text" @input.prevent="setWidth('ПББ')" v-model.number="width"  class="calc__fild" > м.
                                 </div>
@@ -67,33 +67,24 @@
             <div class="statistic__colom">
                 <div class="statistic__title">Параметры</div>
                 <div class="statistic__params">
-                    <div class="">
-                        <div class="statistic__colom">
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Тип крепления:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.version_pillar.type_post.values[data.version_pillar.active_parametrs.type_post_index].title}}</span>
-                            </div>
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Ширина {{ data.Additional_elements_fence.active_parametrs.type_filling.type }}:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.Additional_elements_fence.active_parametrs.type_filling.width }}М</span>
-                            </div>
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">L насадка:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <span class="statistic__paramValue">{{ data.Additional_elements_fence.active_parametrs.L_nasadca || 0 }} Шт.</span>
-                            </div>
-                            
-                            <div class="statistic__param">
-                                <span class="statistic__paramTitle">Цвет ограждения:</span>
-                                <span class="statistic__paramDot"> </span>
-                                <div class="statistic__paramValue">
-                                    <span class="statistic__paramValue--color" 
-                                        :style="{backgroundColor: data.Additional_elements_fence.active_parametrs.collor_active.value}" 
-                                    ></span>
-                                </div>
-                            </div>
+                    <div class="statistic__param">
+                        <span class="statistic__paramTitle">Ширина {{ data.Additional_elements_fence.active_parametrs.type_filling.type }}:</span>
+                        <span class="statistic__paramDot"> </span>
+                        <span class="statistic__paramValue">{{ data.Additional_elements_fence.active_parametrs.type_filling.width }}М</span>
+                    </div>
+                    <div class="statistic__param">
+                        <span class="statistic__paramTitle">L насадка:</span>
+                        <span class="statistic__paramDot"> </span>
+                        <span class="statistic__paramValue">{{ data.Additional_elements_fence.active_parametrs.L_nasadca || 0 }} Шт.</span>
+                    </div>
+                    
+                    <div class="statistic__param">
+                        <span class="statistic__paramTitle">Цвет ограждения:</span>
+                        <span class="statistic__paramDot"> </span>
+                        <div class="statistic__paramValue">
+                            <span class="statistic__paramValue--color" 
+                                :style="{backgroundColor: data.Additional_elements_fence.colors[data.Additional_elements_fence.active_parametrs.collor_active].value}" 
+                            ></span> 
                         </div>
                     </div>
                 </div>
@@ -104,17 +95,16 @@
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
-                    </div>
-                    <div class="statistic__valuesRow">
-                        <div class="statistic__valuesTitle">Цена панели:</div>
-                        <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -138,12 +128,23 @@ export default {
             width: 0, 
         }
     },
+    mounted() {
+        let width = this.data.Additional_elements_fence.active_parametrs.type_filling.width;
+        if(width == 0) {
+            this.width = this.data.general_parameters.active_parametrs.size_perimetr;
+        } else {
+            this.width = width;
+        }
+    },
     methods: {
         selectedColor(value){ 
+            
             this.data.Additional_elements_fence.active_parametrs.collor_active = value;
             this.$store.dispatch('setData_calc', this.data );
         },
         setWidth(type) { 
+            console.log("click ", type)
+
             if(this.width < 0) {
                 this.width = 0
             } 
@@ -176,7 +177,13 @@ export default {
     computed: {
         data() {
             return this.$store.getters.Data_calc;
-        }
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
+        },
     },
 }
 </script>
@@ -227,5 +234,10 @@ export default {
     }
     .type_fill__nasadki {
         margin-top: 1rem;
+    }
+    @media screen and (max-width: 768px) {
+        .type_fill__items {
+            flex-wrap: wrap;
+        }
     }
 </style>

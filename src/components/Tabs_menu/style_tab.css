@@ -3,7 +3,7 @@
     --accent2: #212529;
     --accent3: #f5f6f6;
     --accent4: #f2f2f2;
-    --mobile-menu-width: 220px;
+    --mobile-menu-width: 200px;
 
     max-width: 1200px;
     margin: 0 auto;
@@ -48,61 +48,107 @@
 .tabMenu__button { 
     display: none;
     cursor: pointer;
-    position: absolute;
+    position: fixed;
     z-index: 7777;
     left: 1rem;
     top: 1rem;
-    padding: 1rem;
-
     color: var(--accent3);
     width: max-content;
     border-radius: 8px;
     border: 1px solid var(--accent3);
     transition: .7s;
-    background: url(./img/menu-bar.png), var(--accent1);
+    background: var(--accent1);
     background-size: 80%;
     background-position: center;
     background-repeat: no-repeat;
+
+    padding: .5rem .8rem;
+    font-size: 15px;
+    /* background: var(--tiker); */
 }
-.tabMenu__button--active {
-    left: 260px;
+.overlay__menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #333333f0;
+    z-index: 8888;
+    cursor: pointer;
 }
 
+.close__button {
+    position: absolute;
+    z-index: 9999;
+    cursor: pointer;
+    left: calc(var(--mobile-menu-width) + 1rem);
+    height: 20px;
+    width: 20px;
+    background-color: #006f3e;
+    padding: .5rem;
+    border-radius: 50%;
+    top: .5rem;
+}
+.close__button img {
+    width: 100%;
+    height: 100%;
+}
 
 @media screen and (max-width: 1200px) {
+
     .tabs__block {
-        /* display: block; */
-        /* max-width: 900px; */
         grid-template-columns: var(--mobile-menu-width) 1fr;
+    }
+    .tabMenu__item {
+        font-size: 1rem!important;
     }
     .tabContent {
         padding-top: 2rem;
     }
+
+    
+}
+@media screen and (max-width: 768px) {
+    .tabMenu__button {
+        display: block;
+        cursor: pointer;
+        
+    }
+    .tabs__block {
+        grid-template-columns: 1fr;
+    }
     .tabMenu {
-        width: var(--mobile-menu-width);
-        /* overflow: hidden; */
-        /* position: absolute; */
-        left: 0;
+        overflow: hidden; 
+        position: absolute;
+        left:  -220px;
         right: 0;
         transition: .7s;
-        z-index: 7776;
+        z-index: 9999;
         /* border: 1px solid var(--accent2); */
+        height: 100%;
+        width: 0;
+    }
+    .overlay__menu--active {
+        display: block;
+       
     }
     .tabMenu__item {
+        /* position: absolute;
+        left: 0;
+        top: 0;
         font-size: 1rem;
+        z-index: 9990; */
+
     }
     .tabMenu span {
         width: var(--mobile-menu-width);
     }
     .tabMenu--active {
-        /* width: 250px; */
+        width: var(--mobile-menu-width) !important;
+        left:  0;
     }
-    .tabMenu__button {
-        /* display: none; */
-    }
-    
-}
-@media screen and (max-width: 768px) {
+   
     .calc__row {
         flex-wrap: wrap;
     }

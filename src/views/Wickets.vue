@@ -173,8 +173,8 @@
                             <span class="statistic__paramDot"> </span>
                             <div class="statistic__paramValue">
                                 <span class="statistic__paramValue--color" 
-                                    :style="{backgroundColor: data.Wickets.active_parametrs.collor_active.value}" 
-                                ></span>
+                                    :style="{backgroundColor: data.Wickets.colors[data.Wickets.active_parametrs.collor_active].value}" 
+                                ></span> 
                             </div>
                             
                         </div>
@@ -190,17 +190,43 @@
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
+                        <div class="statistic__value"><span>
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
-                    <div class="statistic__valuesRow">
-                        <div class="statistic__valuesTitle">Цена панели:</div>
+                    <div class="statistic__valuesRow" v-if="data.Wickets.active_parametrs.smart != 0">
+                        <div class="statistic__valuesTitle">Цена калитки SMART:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value">
+                            <span>
+                            от {{ Math.round(Price.kalitki.smart.cost[data.Wickets.active_parametrs.opening_width_smart]).toLocaleString() }} Руб
+                            </span>
+                        </div>
+                    </div>
+                    <div class="statistic__valuesRow" v-if="data.Wickets.active_parametrs.bars != 0">
+                        <div class="statistic__valuesTitle">Цена калитки BARS:</div>
+                        <div class="statistic__paramDot"></div>
+                        <div class="statistic__value">
+                            <span>
+                            от {{ Math.round(Price.kalitki.bars.cost[data.Wickets.active_parametrs.opening_width_bars]).toLocaleString() }} Руб
+                            </span>
+                        </div>
+                    </div>
+                    <div class="statistic__valuesRow" v-if="data.Wickets.active_parametrs.fance != 0 && Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance]">
+                        <div class="statistic__valuesTitle">Цена калитки FANCE:</div>
+                        <div class="statistic__paramDot"></div>
+                        <div class="statistic__value">
+                            <span>
+                            от {{ Math.round(Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance]).toLocaleString() }} Руб 
+                            </span>
+                        </div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -273,7 +299,16 @@
             },
             active_params() {
                 return this.$store.getters.Data_calc.Wickets.active_parametrs;
-            }
+            },
+            Statisticks () {
+                return this.$store.getters.Statisticks;
+            },
+            Price() {
+                return this.$store.getters.Price;
+            },
+            Weight () {
+                return this.$store.getters.Weight;
+            },
         },
     }
 </script>

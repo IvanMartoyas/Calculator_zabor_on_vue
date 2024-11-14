@@ -37,7 +37,7 @@ export default {
         isItemActive(index) { // актинвые элементы
             let newData = this._values[index];
             let data = this._values[this._active_value];
-
+      
             if( newData <= data) {
                 return true;
             } else {
@@ -67,9 +67,9 @@ export default {
     },
     watch: {
         active_value(newValue, oldValue) {
-            console.log('value newValue ', newValue )
+            // console.log('value newValue ', newValue )
             this._active_value = newValue;
-            console.log('input_value ', this._active_value )
+            // console.log('input_value ', this._active_value )
         }
     }
 }

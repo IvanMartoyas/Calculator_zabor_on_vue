@@ -5,7 +5,6 @@
         
             <b v-if="_values.length == 1">&nbsp; - {{_values[0] }} </b>
         </div>
-        
             <select class="select_range" v-model="_active_value" @change="selectedValue()" v-if="_values.length > 1">
                 <option 
                     v-for="(value, i) in _values"
@@ -53,7 +52,7 @@ export default {
             if(index == undefined) {
                 index = this._active_value;
             }
-            console.log("set data ", index)
+            // console.log("set data ", index)
             this._active_value = index;
             this.$emit('selectedValue', this._active_value);
         },

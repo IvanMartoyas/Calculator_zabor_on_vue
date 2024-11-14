@@ -84,7 +84,7 @@
                                 <span class="statistic__paramDot"> </span>
                                 <div class="statistic__paramValue">
                                     <span class="statistic__paramValue--color" 
-                                        :style="{backgroundColor: data.size_panel.active_parametrs.collor_active.value}" 
+                                        :style="{backgroundColor: data.size_panel.colors[data.size_panel.active_parametrs.collor_active].value}" 
                                     ></span>
                                 </div>
                             </div>
@@ -98,17 +98,24 @@
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 1 709,44 кг.</span></div>
+                        <div class="statistic__value"><span>
+                            {{ Math.round(Weight.amount/1000).toLocaleString() }} КГ.
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена панели:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>
+                            {{ Price.panel.height[data.general_parameters.active_parametrs.height_fance].cost.toLocaleString() }} Руб
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>от 393 586 р.</span></div>
+                        <div class="statistic__value"><span>
+                            от {{ Statisticks.amount_price.toLocaleString()  }} Руб
+                            
+                        </span></div>
                     </div>
                 </div>
             </div>
@@ -137,7 +144,7 @@ export default {
         }
     },
     mounted() {
-
+        this.setVariant(this.type_fance.params.selected_data.fance_variant);
     },
     computed: {
         data() {
@@ -145,8 +152,18 @@ export default {
         },
         type_fance() {
             return this.$store.getters.Data_calc.size_panel.type_fance[2];
-        }
+        },
+        Price() {
+            return this.$store.getters.Price;
+        },
+        Statisticks () {
+            return this.$store.getters.Statisticks;
+        },
+        Weight () {
+            return this.$store.getters.Weight;
+        },
     },
+
     methods: {
         setFanceType(index) {
             // this.fance_active = index;
@@ -165,7 +182,7 @@ export default {
         //     this.$store.dispatch('setData_calc', this.data );
         // },
         size_verticle_value(val) {
-            console.log("size_verticle_value ",val)
+            // console.log("size_verticle_value ",val)
             this.data.size_panel.type_fance[2].params.selected_data.size_verticle = val;
             this.$store.dispatch('setData_calc', this.data );
         },
@@ -187,7 +204,6 @@ export default {
             } else {
                 return 'Безопастная';
             }
-
         }
     }
 }

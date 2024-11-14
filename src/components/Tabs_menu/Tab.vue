@@ -1,8 +1,16 @@
 <template>
       <div class="wrapper">
         <div id="tabs-wrapper" class="tabs__block">
-            <div class="tabMenu__button"></div>
-            <div class="tabs tabMenu">
+
+            <div 
+                class="tabMenu__button"
+                @click="isActive = true"
+            >Меню</div>
+
+            <div class="overlay__menu" @click="isActive = false" :class="{'overlay__menu--active': isActive}"><div class="close__button"  @click="isActive = false"><img :src="require('@/assets/img/_close.png')" alt=""></div></div>
+            
+            <div class="tabs tabMenu" :class="{'tabMenu--active': isActive}">
+                
               <span 
                 class="tab tabMenu__item" 
                 v-for="(item, i) in menu_items" 
@@ -47,6 +55,7 @@ export default {
         return {
             menu_items: [],
             componentId: '',
+            isActive: false
         }
     },
     computed: {
