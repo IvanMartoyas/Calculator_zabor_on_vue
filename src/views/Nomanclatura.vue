@@ -228,16 +228,16 @@
                 </div> 
             </div>    
             <!-- скобы конец -->
-
+         
             <div v-if="data.Additional_elements_fence.active_parametrs.type_filling.width != 0">
                 <div class="table__row" v-if="data.Additional_elements_fence.active_parametrs.type_filling.type == 'СББ'">
                     <div class="table__item table__title">{{ Price.SBB.SBB_attachment_kit.title }}</div>
                     <div class="table__item table__value">{{ Price.SBB.SBB_attachment_kit.cost.toLocaleString() }} Руб</div>
                     <div class="table__item table__value">{{ (data.Additional_elements_fence.active_parametrs.type_filling.width).toLocaleString() }}</div>
-               
+                  
                     <div class="table__item table__weight">
                         <span>
-                            {{ Math.round((data.Additional_elements_fence.active_parametrs.type_filling.width * (Weight.Additional_elements_fence.SBB.weight))) }}
+                            {{ Math.round((data.Additional_elements_fence.active_parametrs.type_filling.width * (Price.SBB.weight))) }}
                         </span> Кг
                     </div>
 
@@ -252,7 +252,7 @@
                     <div class="table__item table__value">{{ (data.Additional_elements_fence.active_parametrs.type_filling.width).toLocaleString() }}</div>
                     <div class="table__item table__weight">
                         <span>
-                            {{ Math.round(data.Additional_elements_fence.active_parametrs.type_filling.width * (Weight.Additional_elements_fence.PBB.weight )) }}
+                            {{ Math.round(data.Additional_elements_fence.active_parametrs.type_filling.width * (Price.PBB.weight )) }}
                         </span> Кг
                     </div>
                     <div class="table__item table__value table__price">
@@ -272,7 +272,10 @@
             </div>
 
             <!-- калитки начало -->
-            {{ data.Wickets.height[data.Wickets.active_parametrs.height] }}
+            <!-- пример вывода данных, тип клаитки и индекс ширины из data
+                {{ Price.kalitki.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart).cost }} -->
+
+            {{ data.Wickets.height[data.Wickets.active_parametrs.height] }} 
             <div class="table__row" v-if="data.Wickets.active_parametrs.smart != 0">
                 <div class="table__item table__title">
                     {{ Price.kalitki.smart.title  }}  
@@ -280,56 +283,56 @@
                     x {{ data.Wickets.opening_width_smart.values[data.Wickets.active_parametrs.opening_width_smart] }}
                 
                 </div>
-                <div class="table__item table__value">{{ Price.kalitki.smart.cost[data.Wickets.active_parametrs.opening_width_smart].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.kalitki.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Wickets.active_parametrs.smart.toLocaleString() }}</div>
                 <div class="table__item table__weight">
+               
                     <span>
-                        {{ Math.round(data.Wickets.active_parametrs.smart * Weight.Wickets.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart) ) }}
+                        {{ Math.round(data.Wickets.active_parametrs.smart * Price.kalitki.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart).weight ) }}
                     </span> 
                     кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round((data.Wickets.active_parametrs.smart * Price.kalitki.smart.cost[data.Wickets.active_parametrs.opening_width_smart])).toLocaleString() }}</span>
+                    <span>{{ Math.round((data.Wickets.active_parametrs.smart * Price.kalitki.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart).cost)).toLocaleString() }}</span>
                     Руб</div>
             </div>
 
-             <div class="table__row" v-if="data.Wickets.active_parametrs.bars != 0">
+            <div class="table__row" v-if="data.Wickets.active_parametrs.bars != 0">
                 <div class="table__item table__title">
                     {{ Price.kalitki.bars.title  }}  
                     {{ data.Wickets.height.values[data.Wickets.active_parametrs.height] }} 
                     x {{ data.Wickets.opening_width_bars.values[data.Wickets.active_parametrs.opening_width_bars] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.kalitki.bars.cost[data.Wickets.active_parametrs.opening_width_bars].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.kalitki.getWickets('bars',data.Wickets.active_parametrs.opening_width_bars).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Wickets.active_parametrs.bars.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Wickets.active_parametrs.bars * Weight.Wickets.getWickets('bars',data.Wickets.active_parametrs.opening_width_bars) ) }}
+                        {{ Math.round(data.Wickets.active_parametrs.bars * Price.kalitki.getWickets('bars',data.Wickets.active_parametrs.opening_width_bars).weight) }}
                     </span> 
                     Кг
                 </div>
                 <div class="table__item table__value table__price">
                     <span>
-                        {{ Math.round(Price.kalitki.bars.cost[data.Wickets.active_parametrs.opening_width_bars] * data.Wickets.active_parametrs.bars).toLocaleString() }}
+                        {{ Math.round(Price.kalitki.getWickets('bars',data.Wickets.active_parametrs.opening_width_bars).cost * data.Wickets.active_parametrs.bars).toLocaleString() }}
                     </span> 
                     Руб</div>
             </div>
-
             <div class="table__row" v-if="data.Wickets.active_parametrs.fance != 0">
                 <div class="table__item table__title">
                     {{ Price.kalitki.fence.title  }}  
                     {{ data.Wickets.height.values[data.Wickets.active_parametrs.height] }} 
                     x {{ data.Wickets.opening_width_fance.values[data.Wickets.active_parametrs.opening_width_fance] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.kalitki.getWickets('fence',data.Wickets.active_parametrs.opening_width_fance).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Wickets.active_parametrs.fance.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Wickets.active_parametrs.fance * Weight.Wickets.getWickets('fance',data.Wickets.active_parametrs.opening_width_fance)) }}
+                        {{ Math.round(data.Wickets.active_parametrs.fance * Price.kalitki.getWickets('fence',data.Wickets.active_parametrs.opening_width_fance).weight) }}
                     </span> 
                     кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance] * data.Wickets.active_parametrs.fance).toLocaleString() }}</span>
+                    <span>{{ Math.round(Price.kalitki.getWickets('fence',data.Wickets.active_parametrs.opening_width_fance).cost * data.Wickets.active_parametrs.fance).toLocaleString() }}</span>
                     Руб
                 </div>       
             </div> 
@@ -337,22 +340,23 @@
             <!-- калитки конец -->
 
             <!-- распашные и разздвижные ворота начало -->
+           <!-- fasd {{ Price.gates.getGates('swing_gates','smart',1) }} -->
              <div class="table__row" v-if="data.Gates.active_parametrs.swing_smart != 0">
                 <div class="table__item table__title">
                     {{ Price.gates.swing_gates.title }}   {{ Price.gates.swing_gates.smart.title }}  
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_swing.values[data.Gates.active_parametrs.swing_width] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.gates.swing_gates.smart.cost[data.Gates.active_parametrs.swing_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.gates.getGates('swing_gates','smart',data.Gates.active_parametrs.swing_width).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.swing_smart.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.swing_smart * Weight.Gates.getGates('swing','smart', data.Gates.active_parametrs.swing_width) ) }} 
+                        {{ Math.round(data.Gates.active_parametrs.swing_smart * Price.gates.getGates('swing_gates','smart',data.Gates.active_parametrs.swing_width).weight ) }} 
                     </span> 
                     кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.gates.swing_gates.smart.cost[data.Gates.active_parametrs.swing_width] * data.Gates.active_parametrs.swing_smart).toLocaleString() }}</span>
+                    <span>{{ Math.round(Price.gates.getGates('swing_gates','smart',data.Gates.active_parametrs.swing_width).cost * data.Gates.active_parametrs.swing_smart).toLocaleString() }}</span>
                     Руб</div>
             </div>
            
@@ -362,16 +366,16 @@
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_swing.values[data.Gates.active_parametrs.swing_width] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.gates.swing_gates.bars.cost[data.Gates.active_parametrs.swing_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.gates.getGates('swing_gates','bars',data.Gates.active_parametrs.swing_width).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.swing_bars.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.swing_bars * Weight.Gates.getGates('swing','bars', data.Gates.active_parametrs.swing_width)) }} 
+                        {{ Math.round(data.Gates.active_parametrs.swing_bars * Price.gates.getGates('swing_gates','bars',data.Gates.active_parametrs.swing_width).weight) }} 
                     </span> 
                     кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.gates.swing_gates.bars.cost[data.Gates.active_parametrs.swing_width] * data.Gates.active_parametrs.swing_bars).toLocaleString() }}</span>
+                    <span>{{ Math.round(Price.gates.getGates('swing_gates','bars',data.Gates.active_parametrs.swing_width).cost * data.Gates.active_parametrs.swing_bars).toLocaleString() }}</span>
                     Руб</div>       
             </div> 
             
@@ -382,21 +386,20 @@
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_swing.values[data.Gates.active_parametrs.swing_width] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.gates.swing_gates.fance.cost[data.Gates.active_parametrs.swing_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.gates.getGates('swing_gates','fance',data.Gates.active_parametrs.swing_width).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.swing_fance.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.swing_fance * Weight.Gates.getGates('swing','fance', data.Gates.active_parametrs.swing_width)) }} 
+                        {{ Math.round(data.Gates.active_parametrs.swing_fance * Price.gates.getGates('swing_gates','fance',data.Gates.active_parametrs.swing_width).weight) }} 
                     </span> 
                     кг
                 </div>
                 <div class="table__item table__value table__price">
                     <span>
-                        {{ Math.round(Price.gates.swing_gates.fance.cost[data.Gates.active_parametrs.swing_width] * data.Gates.active_parametrs.swing_fance).toLocaleString() }}
+                        {{ Math.round(Price.gates.getGates('swing_gates','fance',data.Gates.active_parametrs.swing_width).cost * data.Gates.active_parametrs.swing_fance).toLocaleString() }}
                     </span> 
                 Руб</div>       
             </div>  
-
 
 
             <div class="table__row" v-if="data.Gates.active_parametrs.sliding_smart != 0">
@@ -405,19 +408,20 @@
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_sliding.values[data.Gates.active_parametrs.sliding_width] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.gates.sliding_gates.smart.width[data.Gates.active_parametrs.sliding_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.gates.getGates('sliding_gates','smart',data.Gates.active_parametrs.sliding_width).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.sliding_smart.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.sliding_smart * Weight.Gates.getGates('sliding','smart', data.Gates.active_parametrs.sliding_width) ) }} 
+                        {{ Math.round(data.Gates.active_parametrs.sliding_smart * Price.gates.getGates('sliding_gates','smart',data.Gates.active_parametrs.sliding_width).weight) }} 
                     </span> 
                      кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.gates.sliding_gates.smart.width[data.Gates.active_parametrs.sliding_width] * data.Gates.active_parametrs.sliding_smart).toLocaleString() }}</span> 
-                    Руб</div>
-            </div>
+                    <span>{{ Math.round( Price.gates.getGates('sliding_gates','smart',data.Gates.active_parametrs.sliding_width).cost * data.Gates.active_parametrs.sliding_smart).toLocaleString() }}</span> 
+                    Руб
+                </div>
 
+            </div>  
 
             <div class="table__row" v-if="data.Gates.active_parametrs.sliding_bars != 0">
                 <div class="table__item table__title">
@@ -425,16 +429,16 @@
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_sliding.values[data.Gates.active_parametrs.sliding_width] }} GN
                 </div>
-                <div class="table__item table__value">{{ Price.gates.sliding_gates.bars.width[data.Gates.active_parametrs.sliding_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value">{{ Price.gates.getGates('sliding_gates','bars',data.Gates.active_parametrs.sliding_width).weight.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.sliding_bars.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.sliding_bars * Weight.Gates.getGates('sliding','bars', data.Gates.active_parametrs.sliding_width)) }} 
+                        {{ Math.round(data.Gates.active_parametrs.sliding_bars * Price.gates.getGates('sliding_gates','bars',data.Gates.active_parametrs.sliding_width).weight) }} 
                     </span> 
                      кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.gates.sliding_gates.bars.width[data.Gates.active_parametrs.sliding_width] * data.Gates.active_parametrs.sliding_bars).toLocaleString() }}</span>
+                    <span>{{ Math.round(Price.gates.getGates('sliding_gates','bars',data.Gates.active_parametrs.sliding_width).cost * data.Gates.active_parametrs.sliding_bars).toLocaleString() }}</span>
                     Руб</div>
             </div>
 
@@ -444,16 +448,16 @@
                     {{ data.Gates.height.values[data.Gates.active_parametrs.height] }} 
                     x {{ data.Gates.opening_width_sliding.values[data.Gates.active_parametrs.sliding_width] }} GN
                 </div>
-                <div class="table__item table__value"> {{ Price.gates.sliding_gates.fance.width[data.Gates.active_parametrs.sliding_width].toLocaleString() }} Руб</div>
+                <div class="table__item table__value"> {{ Price.gates.getGates('sliding_gates','fance',data.Gates.active_parametrs.sliding_width).cost.toLocaleString() }} Руб</div>
                 <div class="table__item table__value">{{ data.Gates.active_parametrs.sliding_fance.toLocaleString() }}</div>
                 <div class="table__item table__weight">
                     <span>
-                        {{ Math.round(data.Gates.active_parametrs.sliding_fance * Weight.Gates.getGates('sliding','fance', data.Gates.active_parametrs.sliding_width)) }} 
+                        {{ Math.round(data.Gates.active_parametrs.sliding_fance * Price.gates.getGates('sliding_gates','fance',data.Gates.active_parametrs.sliding_width).weight) }} 
                     </span> 
                      кг
                 </div>
                 <div class="table__item table__value table__price">
-                    <span>{{ Math.round(Price.gates.sliding_gates.fance.width[data.Gates.active_parametrs.sliding_width] * data.Gates.active_parametrs.sliding_fance).toLocaleString() }}</span>
+                    <span>{{ Math.round(Price.gates.getGates('sliding_gates','fance',data.Gates.active_parametrs.sliding_width).cost * data.Gates.active_parametrs.sliding_fance).toLocaleString() }}</span>
                     Руб</div>
             </div>
             <!-- распашные и разздвижные ворота конец -->
@@ -580,7 +584,7 @@ export default {
         padding: 25px;
     }
     .table__weight {
-        display: none;
+        display: none;   
     }
     .table__price span {
         margin-right: 5px;

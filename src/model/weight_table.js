@@ -102,50 +102,7 @@ export const _values_weight = {
         ]
     
     },
-    Additional_elements_fence: {
-        SBB: {
-            weight: 8300,
-        },
-        PBB: {
-            weight: 650,
-        }
-    },
-    Wickets: {
-        getWickets(action, index) {
-            try {
-                if(action == 'smart') {
-                    return this.smart[index]
-                }
-                if(action == 'bars') {
-                    return this.bars[index]
-                }
-                if(action == 'fance') {
-                    return this.fance[index]
-                }
-            }
-            catch(e) {
-                console.log(`Get weight Wickets (${action} error: `,e) 
-                return {
-                    weight: 0
-                }
-            }
-        },
-        smart: [
-            33000,
-            33000,
-            33000,
-            33000,
-
-        ],
-        bars: [
-            53500,
-            54500
-        ],
-        fance: [
-            47500,
-            50000
-        ],
-    },
+   
     Gates: {
         getGates( type , action, index) {
             console.log("type ",type)

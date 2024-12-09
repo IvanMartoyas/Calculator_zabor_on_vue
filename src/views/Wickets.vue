@@ -199,7 +199,7 @@
                         <div class="statistic__paramDot"></div>
                         <div class="statistic__value">
                             <span>
-                            от {{ Math.round(Price.kalitki.smart.cost[data.Wickets.active_parametrs.opening_width_smart]).toLocaleString() }} Руб
+                            от {{ Math.round(Price.kalitki.getWickets('smart',data.Wickets.active_parametrs.opening_width_smart).cost).toLocaleString() }} Руб
                             </span>
                         </div>
                     </div>
@@ -208,16 +208,16 @@
                         <div class="statistic__paramDot"></div>
                         <div class="statistic__value">
                             <span>
-                            от {{ Math.round(Price.kalitki.bars.cost[data.Wickets.active_parametrs.opening_width_bars]).toLocaleString() }} Руб
+                            от {{ Math.round(Price.kalitki.getWickets('bars',data.Wickets.active_parametrs.opening_width_bars).cost).toLocaleString() }} Руб
                             </span>
                         </div>
                     </div>
-                    <div class="statistic__valuesRow" v-if="data.Wickets.active_parametrs.fance != 0 && Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance]">
+                    <div class="statistic__valuesRow" v-if="data.Wickets.active_parametrs.fance != 0">
                         <div class="statistic__valuesTitle">Цена калитки FANCE:</div>
                         <div class="statistic__paramDot"></div>
                         <div class="statistic__value">
                             <span>
-                            от {{ Math.round(Price.kalitki.fence.cost[data.Wickets.active_parametrs.opening_width_fance]).toLocaleString() }} Руб 
+                            от {{ Math.round(Price.kalitki.getWickets('fence',data.Wickets.active_parametrs.opening_width_fance).cost).toLocaleString() }} Руб 
                             </span>
                         </div>
                     </div>
@@ -288,10 +288,6 @@
                 this.data.Wickets.active_parametrs.height = value;
                 this.$store.dispatch('setData_calc', this.data );
             },
-            // size_panel_selectedColor(value){ 
-            //     this.data.version_pillar.active_parametrs.collor_active = value;
-            //     this.$store.dispatch('setData_calc', this.data );
-            // },
         },
         computed: {
             data() {

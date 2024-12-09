@@ -23,18 +23,22 @@ export const price = {
             {
                 cost: 9381,
                 value: 2430,
+                weight: 23210,
             },
             {
                 cost: 7889,
                 value: 2030,
+                weight: 15955,
             },
             {
                 cost: 8750,
                 value: 1730,
+                weight: 12640,
             },
             {
                 cost: 7050,
                 value: 1530,
+                weight: 11355,
             },
         ]
     },
@@ -615,6 +619,7 @@ export const price = {
     SBB: {
         title: 'СББ из АКЛ',
         cost: 2582,
+        weight: 8300,
         SBB_attachment_kit: {
             title: 'Комплект крепления СББ к насадке',
             cost: 2582,
@@ -623,6 +628,7 @@ export const price = {
     PBB: {
         title: 'ПББ',
         cost: 5000,
+        weight: 650,
     },
     nasadka_L: {
         title: 'Насадка L ус 510',
@@ -709,64 +715,164 @@ export const price = {
         ],
     },
     kalitki: {
+        getWickets(action, index) {
+            try {
+                return this[action].cost[index];
+            }
+            catch(e) {
+                console.log(`Get weight Wickets (${action} error: `,e) 
+                return {
+                    weight: 0
+                }
+            }
+        },
         smart: {
             title: 'Калитка SMART',
             cost: [
-                21448, // 900
-                21594, // 1000
-                22803, // 1100
-                24876, // 1200    
+                {
+                    cost: 21448,
+                    weight: 33000,
+                },
+                {
+                    cost: 21594,
+                    weight: 33000,
+                },
+                {
+                    cost: 22803,
+                    weight: 33000,
+                },
+                {
+                    cost: 21448,
+                    weight: 24876,
+                },  
             ],
         },
         bars: {
             title: 'Калитка BARS',
             cost: [
-                32786, // 1000 
-                33770, // 1200
+                { 
+                    cost: 32786,
+                    weight: 53500,
+                },
+                { 
+                    cost: 33770,
+                    weight: 54500,
+                }
             ],
         },
         fence: {
             title: 'Калитка FENCE',
             cost: [
-                29686, // 1000 
-                30491, // 1200
+                {
+                    cost: 29686,
+                    weight: 47500,
+                },
+                {
+                    cost: 30491,
+                    weight:  50000,
+                }
             ],
         },
     },
     gates: {
+        getGates(type, action, index) {
+            console.log("index ", index)
+            try {
+                // .action.cost[index]
+                return this[type][action].cost[index];
+            }
+            catch(e) {
+                console.log(`Get weight Wickets (${action} error: `,e) 
+                return 0;
+            }
+        },
         swing_gates: {
             title: 'Распашные ворота',
             smart: {
                 title: 'SMART',
                 cost: [
-                    78234,
-                    86783,
-                    93365,
-                    94454,
-                    101906,
-                    131180
+                    {
+                        cost: 78234,
+                        weight: 98000,
+                    },
+                    {
+                        cost: 86783,
+                        weight: 101000,
+                    },
+                    {
+                        cost: 93365,
+                        weight: 105000,
+                    },
+                    {
+                        cost: 94454,
+                        weight: 108000,
+                    },
+                    {
+                        cost: 101906,
+                        weight: 117000,
+                    },
+                    {
+                        cost: 131180,
+                        weight: 120000,
+                    },
                 ]
             },
             bars: {
                 title: 'BARS',
                 cost: [
-                    66948,
-                    72173,
-                    76904,
-                    77996,
-                    83596,
-                    105587
+                    {
+                        cost: 66948,
+                        weight: 126000,
+                    },
+                    {
+                        cost: 72173,
+                        weight: 169000,
+                    },
+                    {
+                        cost: 76904,
+                        weight: 177000,
+                    },
+                    {
+                        cost: 77996,
+                        weight: 186000,
+                    },
+                    {
+                        cost: 83596,
+                        weight: 194000,
+                    },
+                    {
+                        cost: 105587,
+                        weight: 350000,
+                    },
                 ]
             },
             fance: {
                 title: 'FANCE',
                 cost: [
-                    27223,
-                    31055,
-                    34104,
-                    36923,
-                    40194,
-                    43466
+                    {
+                        cost: 27223,
+                        weight: 107000,
+                    },
+                    {
+                        cost: 31055,
+                        weight: 147000,
+                    },
+                    {
+                        cost: 34104,
+                        weight: 153000,
+                    },
+                    {
+                        cost: 36923,
+                        weight: 158000,
+                    },
+                    {
+                        cost: 40194,
+                        weight: 164000,
+                    },
+                    {
+                        cost: 43466,
+                        weight: 320000,
+                    },
                 ]
             },
         },
@@ -774,35 +880,77 @@ export const price = {
             title: 'Распашные ворота',
             smart: {
                 title: 'SMART',
-                width: [
-                    173154,
-                    189226,
-                    189226,
-                    212870,
-                    220631,
-                    242639
+                cost: [
+                    {
+                        cost: 189226,
+                        weight: 100000,
+                    },
+                    {
+                        cost: 189226,
+                        weight: 100000,
+                    },
+                    {
+                        cost: 212870,
+                        weight: 100000,
+                    },
+                    {
+                        cost: 220631,
+                        weight: 100000,
+                    },
+                    {
+                        cost: 242639,
+                        weight: 100000,
+                    },
                 ]
             },
             bars: {
                 title: 'BARS',
-                width: [
-                    161485,
-                    174760,
-                    174760,
-                    195929,
-                    203981,
-                    222422
+                cost: [      
+                    {
+                        cost: 174760,
+                        weight: 255000,
+                    },
+                    {
+                        cost: 174760,
+                        weight: 268000,
+                    },
+                    {
+                        cost: 195929,
+                        weight: 360000,
+                    },
+                    {
+                        cost: 203981,
+                        weight: 284000,
+                    },
+                    {
+                        cost: 222422,
+                        weight: 406000,
+                    },
                 ]
             },
             fance: {
                 title: 'FANCE',
-                width: [
-                    50000,
-                    50000,
-                    50000,
-                    50000,
-                    50000,
-                    50000,
+                cost: [
+                    {
+                        cost: 50000,
+                        weight: 232000,
+                    },
+                    {
+                        cost: 50000,
+                        weight: 242000,
+                    },
+                    {
+                        cost: 50000,
+                        weight: 331000,
+                    },
+                    {
+                        cost: 50000,
+                        weight: 350000,
+                    },
+                    {
+                        cost: 50000,
+                        weight: 367000,
+                    },
                 ]
             },
         }

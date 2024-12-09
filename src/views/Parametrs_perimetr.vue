@@ -22,7 +22,7 @@
                                 </div>
                                 
                                 <div class="statistic__param">
-                                    <span class="statistic__paramTitle">Вес (периметра):</span>
+                                    <span class="statistic__paramTitle">Вес:</span>
                                     <span class="statistic__paramDot"> </span>
                                     <div class="statistic__paramValue">
                                         {{ Math.round(Weight.amount / 1000).toLocaleString() }} Кг
