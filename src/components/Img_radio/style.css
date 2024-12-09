@@ -11,12 +11,12 @@
     border-radius: 50%;
     width: 10px;
     height: 10px;
-    background: #f5f6f6;
-    border: 2px solid #f5f6f6;
+    background: var( --accent4);
+    border: 2px solid var( --accent4);
 }
 .img_radio__radio.active {
-    background: #006f3e;
-    box-shadow: 0 0 1px 1px #006f3e;
+    background: var(--tiker);
+    box-shadow: 0 0 1px 1px var(--tiker);
 }
 .img_radio .calc__content {
     justify-content: start;

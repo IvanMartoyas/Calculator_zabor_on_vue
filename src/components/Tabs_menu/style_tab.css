@@ -1,5 +1,5 @@
 .tabs__block {
-    --accent1: #006f3e;
+    --accent1: #212529;
     --accent2: #212529;
     --accent3: #f5f6f6;
     --accent4: #f2f2f2;
@@ -24,14 +24,17 @@
     font-size: 1.3rem;
     color: var(--accent2);
     background: var(--accent3);
+    font-weight: 600;
 }
 .tabMenu__item:hover {
     background: var(--accent1);
     color: var(--accent4);
+    border-radius: var(--border-radius) 0rem 0 var(--border-radius);
 }
 .tabMenu__item.active {
     background: var(--accent1);
     color: var(--accent4);
+    border-radius: var(--border-radius) 0rem 0 var(--border-radius);
 } 
 .tabContent__item {
     font-size: 18px;

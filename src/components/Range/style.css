@@ -123,7 +123,7 @@ input[type=range]  {
     position: absolute;
     bottom: -.1rem;
     transform: rotate(-45deg);
-    background: var(--accent1);
+    background: var(--tiker);
     width: 28px;
     height: 28px;
     z-index: -1;
@@ -245,7 +245,7 @@ input[type=range]  {
   position: absolute;
   bottom: -.1rem;
   transform: rotate(-45deg);
-  background: var(--accent1);
+  background: var(--tiker);
   width: 25px;
   height: 25px;
   z-index: -1;
@@ -255,7 +255,7 @@ input[type=range]  {
 }
 
 .range_vertical__input {
-  background: var(--accent4);
+  background: var(--bg1);
     width: 5px;
     height: var(--range_height);
 }

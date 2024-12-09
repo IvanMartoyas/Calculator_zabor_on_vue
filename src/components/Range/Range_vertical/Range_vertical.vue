@@ -80,7 +80,7 @@ export default {
     .select_range {
         display: inline-block;
         padding: 5px 15px;
-        border: 1px solid #d0d0d0;
+        border: 1px solid vra(--accent4);
         width: auto;
         max-width: 105px;
         height: 38px;

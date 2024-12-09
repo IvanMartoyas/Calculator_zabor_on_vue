@@ -27,14 +27,15 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  @import '../node_modules/bootstrap-icons/font/bootstrap-icons.min.css';
   @import '@/assets/css/elemets_ui.css';
   @import '@/assets/css/style.css';
   
-  /* временно */
-  .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: Arial;
+  #app img {
+    filter: grayscale(1);
+  }
+  #app button {
+    transition: .5s;
   }
 </style>

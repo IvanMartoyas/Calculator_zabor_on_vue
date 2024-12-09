@@ -1,11 +1,11 @@
 <template>
     <Nomeclatura></Nomeclatura>
     <div class="calculator-page__third-screen wrapper">
-
+  
         <div class="calculator-page__title">Параметры периметра</div>
         <div class="final-table">
 
-            <div class="left-part">
+            <!-- <div class="left-part"> -->
                 <div class="Parametrs_perimetr">
                     <div class="statistic__page pr-1">
                   
@@ -36,9 +36,9 @@
                     <label class=" pr-1" for="order_call">Запросить звонок менеджера для расчета стоимости монтажа</label>
                     <!-- <input type="text" class="phone_number" v-if="order_call" v-model.number="number_phone"> -->
                 </div>
-            </div>
+               <!--</div>
             <div class="right-part delivery top-padding">
-                <div class="delivery__item">
+              <div class="delivery__item">
                     <div><div class="custom_radio custom_radio--height" @click="delivery_type = true, setTypeDelivery()" :class="{active: delivery_type}"></div>
                     </div>
                     <div class="delivery__title" @click="delivery_type = true, setTypeDelivery()">
@@ -48,8 +48,8 @@
                             141850, МО, Дмитровский район, рп. Деденево, Московское ш., д.1
                         </div>
                     </div>
-                </div>
-                <div class="delivery__item">
+                </div> -->
+                <!-- <div class="delivery__item">
                     <div><div class="custom_radio custom_radio--height" @click="delivery_type = false, setTypeDelivery()" :class="{active: !delivery_type}"></div>
                         </div>
                     <div class="delivery__title" @click="delivery_type = false, setTypeDelivery()">
@@ -57,8 +57,7 @@
                         <div class="delivery__adress">
                             Зависит от адреса и объема груза
                         </div>
-                        <!-- v-if="!delivery_type" -->
-                     
+                                      
                         <div class="delivery__zone" v-if="!delivery_type">
                             <ul>
                                 <li
@@ -79,7 +78,7 @@
                     </div>
                 </div>
             
-            </div>
+            </div> -->
             <div class="btns-wrapper">
                 <button class="reset_settings" @click="resetButton">
                     Сбросить настройки
@@ -116,12 +115,14 @@
                         <label for="policy_chek"  @click="form_policy_privacy = !form_policy_privacy">Соглашаюсь с <a href="#">обработкой данных</a></label>
                     </div>
                     <input type="hidden" v-model="form.calculator_data" name="calculator_data">
-                    <button type="sybmit" class="popup__submit " @click="submit_calc_data()">Заказать</button>
+                    <button type="sybmit" class="popup__submit " @click.prevent.stop="submit_calc_data()">Заказать</button>
+
+                    <!-- <div 
+                        v-if="form_massage != ''"  
+                        :class="['form_masage', massageClass]"
+                        >{{ form_massage }}</div> -->
                 </form>
             </div>                
-                
-                
-            
         </dialog>
         
 
@@ -146,9 +147,13 @@ export default {
 
             form_policy_privacy: false,
 
+            massageClass: true,
+            form_massage: '',
+            popup_massage_dalay: 5000,
+
             form: {
                 name: '',
-                phone: 0,
+                phone: '',
                 massage: '',
                 calculator_data: '',
             }
@@ -179,8 +184,50 @@ export default {
             this.get_params();
         },
         submit_calc_data() {
-            this.get_params();
-        }
+            let _this = this;
+
+            if(this.form.phone == "") {
+                this.form_massage = "Заявка была отправленна, мы свяжемся с вами в ближайшее время!";
+                this.massageClass = 'error';
+
+                setTimeout(()=>{
+                    _this.form_massage = "";
+                    _this.take_order = false;
+                    this.massageClass = "";
+                }, this.popup_massage_dalay)
+
+                return;
+            }
+
+            
+            this.form.calculator_data = get_params(this.data, this.form)
+
+            const requestOptions = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ...this.form})
+            };
+
+            fetch("mail.php", requestOptions)
+                // .then(response => console.log("response ",response))
+                .then(response => response.json())
+                .then(response => {
+                    
+                })
+
+                
+                this.form_massage = "Заявка была отправленна, мы свяжемся с вами в ближайшее время!"
+                this.massageClass = "sucsess";
+
+                setTimeout(()=>{
+                    _this.form_massage = "";
+                    _this.take_order = false;
+                    this.massageClass = "";
+                },this.popup_massage_dalay)
+      
+        },
     },  
     mounted() {
         this.zone_index = this.data.Parametrs_perimetr.active_parametrs.sellected_zone;
@@ -213,22 +260,26 @@ export default {
 }
 .calculator-page__title {
     font-size: 34px;
+    margin-top: 3rem;
 }
 .final-table {
-    background-color: #f0f4f7;
+    
+    background-color: var(--statistic);
     padding: 35px 40px;
-    display: flex;
+    /* border-radius: var(--border-radius); */
+    margin-top: 1rem;
+    /* display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: wrap; */
 }
 .left-part, .right-part {
     width: 50%;
     box-sizing: border-box;
 }
-.right-part {
+/* .right-part {
     padding-left: 30px;
     border-left: 3px solid white;
-}
+} */
 .statistic__page {
     margin-bottom: 1.5rem;
 }
@@ -286,6 +337,7 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: baseline;
+    padding-top: 1rem;
 }
 .textCalc {
     margin-top: 25px;
@@ -303,25 +355,38 @@ export default {
     align-items: center;
     cursor: pointer;
     border: 0;
-    background: #006f3e;
-    color: #fff;
+    background: var(--tiker);
+    color: var(--white);
 }
 .make_sale:hover {
-    background: var(--hover-button);
+    background: var(--yellow);
+    color: var(--tiker);
 }
 .reset_settings {
     background-color: transparent;
-    border: 2px solid #879eb3;
+    border: 2px solid var(--tiker);
     padding: 15px 40px;
-    color: #006f3e;
+    color: var(--tiker);
     font-weight: 700;
     font-size: 14px;
 }
 .reset_settings:hover {
-    background: #006f3e;
-    color: #fff;
+    background: var(--tiker);
+    color: var(--white);
+    cursor: pointer;
 }
-
+.form_masage  {
+    margin-top: .6rem;
+    padding: .5rem 1rem;
+    box-sizing: border-box;
+    max-width: 300px;
+}
+.form_masage.sucsess {
+    border: 2px solid var(--tiker);
+}
+.form_masage.error {
+    border: 2px solid red;
+}
 .custom_radio {
     /* background: #f5f6f6!important;
     border: 1px solid #006f3e!important; */
@@ -329,7 +394,7 @@ export default {
     height: 10px!important;
     margin-right: 8px!important;
     margin-top: 8px;
-    box-shadow: 0 0 1px 1px #006f3e;
+    box-shadow: 0 0 1px 1px var(--tiker);
 }
 
 .phone_number {

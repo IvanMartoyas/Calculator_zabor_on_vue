@@ -143,7 +143,7 @@ export default {
             this.$store.dispatch('setData_calc', this.data );
         },
         setWidth(type) { 
-            console.log("click ", type)
+            // console.log("click ", type)
 
             if(this.width < 0) {
                 this.width = 0

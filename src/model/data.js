@@ -48,7 +48,7 @@ export const _data_calc = { // основные данные
         },
         active_parametrs: { // сюда сохраняю выбранные значения
             collor_active: 0,
-            size_perimetr: 1,
+            size_perimetr: 10,
             height_fance: 1,
         }
     },
@@ -317,7 +317,7 @@ export const _data_calc = { // основные данные
     Parametrs_perimetr: { // общие параметры
         active_parametrs: {
             sellected_zone: 0,
-            type_delivery: false,
+            type_delivery: true,
             order_call: false
         },
         zone: [// зоны доставки

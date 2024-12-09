@@ -48,7 +48,7 @@
     z-index: 10;
     padding: .6rem 1.2rem;
     color: var(--white);
-    background: #585858;
+    background: var( --bg1);
     width: max-content;
     max-width: 200px;
 }
@@ -87,11 +87,11 @@
 }
 .active img {
     width: 100%;
-    border: 3px solid #006f3e;
+    border: 3px solid var(--tiker);
     border-radius: 50%;
 }
 .type_fance_variants img  {
-    border: 2px solid #006f3e!important;
+    border: 2px solid var(--tiker)!important;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-position: center center;
@@ -105,7 +105,7 @@
     padding: 0;
 }
 .type_fance_variants__label {
-    color: #000000;
+    color: var(--bg1);
     font-weight: 700;
     font-size: 14px;
     position: absolute;

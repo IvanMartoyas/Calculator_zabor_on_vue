@@ -29,7 +29,7 @@
 
 
 .block_item.active img {
-    border: 2px solid #006f3e!important;
+    border: 2px solid var(--tiker)!important;
     width: 100px;
 }
 
@@ -42,10 +42,11 @@
 .block_item__title--text {
     padding: 10px 0;
 }
+  
 .block_item input {
     display: inline-block;
     padding: 0 15px;
-    border: 1px solid #d0d0d0;
+    border: 1px solid var(--bg1);
     width: auto;
     max-width: 105px;
     height: 38px;

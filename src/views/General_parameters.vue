@@ -85,7 +85,7 @@
  import Color_picker from '@/components/Colors/Color-picker.vue';
  import Range_gorizontal from '@/components/Range/Range_gorizontal/Range_gorizontal.vue';
  import Range_vertical from '@/components/Range/Range_vertical/Range_vertical.vue';
-
+ import {WEIGHT} from '@/model/weight_table'
 
 export default {
     components: {
@@ -100,19 +100,21 @@ export default {
     },
     async mounted() {
         let _this = this;
-
-        let test = await this.$store.getters.get_perimetr;
-             console.log("test ",test)
-        // this.data.general_parameters.active_parametrs.size_perimetr = test;
-        // this.$store.dispatch('setData_calc', this.data );
-
+        let panel_count=0;
         setTimeout(()=>{
             // при первой загрузке должны загрузиться данные из ulr, 
             // после этого нужно посчитать количество панелей вслед за инззменением данных 
             // заработает расчёт статистики и веса
-            _this.Price.panel.count = Math.round((_this.data.general_parameters.active_parametrs.size_perimetr *1000) / _this.Price.panel.width_mm)
+            _this.Price.panel.count = Math.round((_this.data.general_parameters.active_parametrs.size_perimetr *1000) / _this.Price.panel.width_mm);
+            panel_count = _this.Price.panel;
+
+            var _WEIGHT = new WEIGHT(_this)
+            panel_count = _WEIGHT.calc__weight__update();
+
             _this.loader = true;
         },400);
+
+        
     },
     computed: {
         data() {

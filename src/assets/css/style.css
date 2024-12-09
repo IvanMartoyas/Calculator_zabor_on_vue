@@ -1,20 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto+Flex:opsz,wght@8..144,100..1000&family=Yuji+Mai&display=swap');
+
 :root {
-  --accent1: #006f3e;
+  --font-family: 'Roboto', 'Open Sans', Arial;
+  --border-radius: 0;
+
+  --accent1: #212529;
   --accent2: #212529;
   --accent3: #d0d0d0;
   --accent4: #f5f6f6;
   --accent5: #f2f2f2;
 
-  --tiker: #006f3e;
-  --bg1: #dee2e6;
-  --bg2: #006f3e;
+  --yellow: #eae933;
+  --tiker: #212529;
+  --bg1: var(--accent3);
   --bg3: #212529;
-  --statistic: #f0f4f7; 
+  --statistic: #ededed; 
   --white: #ffffff;
-  --hover-button: #00844a;
+  --hover-button: var(--yellow);
   --darck-gray: #585858;
 }
-
+#app {
+  font-family: var(--font-family);
+  font-weight: 100;
+  background: var(--accent4);
+}
+/* временно */
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: var(--font-family);
+}
 input:focus-visible {
   outline: 0;
 }
@@ -45,18 +60,18 @@ button {
   color: var(--bg3);
   background: var(--bg1);
   font-size: 14px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.22);
+  /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.22); */
   border-radius: 0;
   cursor: pointer;
   margin-bottom: 5px;
 }
 .btn-item:hover {
   background: var(--hover-button);
-  color: var(--white);
+  color: var(--tiker)!important;
 }
 .btn-item.active {
-  background: var(--bg2);
-  color: var(--white);
+  background: var(--tiker);
+  color: var(--white)!important;
 }
 .calc {
 
@@ -268,6 +283,7 @@ body {
   .statistic__values {
     padding: 25px;
     background-color: var(--white);
+    border-radius: var(--border-radius);
   }
 
   .statistic__paramTitle {
@@ -311,7 +327,6 @@ body {
     position: absolute;
     left: 0;
     bottom: -5px;
-    /* background: var(--bg2); */
     background: var(--statistic);
     z-index: -1;
     width: 100%;
@@ -332,7 +347,7 @@ body {
   }
   .statistic__valuesTitle {
     background-color: white;
-    color: #006f3e;
+    color: var(--tiker);
     z-index: 1;
     font-size: 19px;
     padding-right: 5px;

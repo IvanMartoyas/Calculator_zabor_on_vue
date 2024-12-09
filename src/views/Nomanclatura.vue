@@ -3,16 +3,16 @@
         <h2 class="table__Btitle">Состав комплекта</h2>
         <div class="table__head">
             <div class="table__item light-blue table__head--title">
-                <i class="table__hIcon table__hIcon--1"></i>
+                <i class="table__hIcon bi bi-list-check"></i>
                 Номенклатура</div>
             <div class="table__item dark-blue">
-                <i class="table__hIcon table__hIcon--2"></i>
+                <i class="table__hIcon bi bi-database"></i>
                 Цена, руб (шт.)</div>
             <div class="table__item light-blue">
-                <i class="table__hIcon table__hIcon--3"></i>
+                <i class="table__hIcon bi bi-calculator"></i>
                 Кол-во (шт.)</div>
             <div class="table__item dark-blue">
-                <i class="table__hIcon table__hIcon--4"></i>
+                <i class="table__hIcon bi bi-wallet"></i>
                 Cумма, руб.</div>
         </div>
         
@@ -527,34 +527,23 @@ export default {
     .table__Btitle {
         text-transform: uppercase;
         font-size: 24px;
-        font-weight: 700;
+        font-weight: 700;margin-top: 3rem;
     }
     .table__head, .table__row {
         display: grid;
         grid-template-columns: 1fr 150px 150px 200px;
     }
     .table__head div {
-        color: #fff;
+        color: var(--white);
         padding: 1.5rem 1rem;
     }
     .table__head--title {
        justify-content: flex-start!important;
     } 
-    .table__hIcon--1 {
-        background: url('../assets/img/Nomanclatura_1.png');
-    }
-    .table__hIcon--2 {
-        background: url('../assets/img/Nomanclatura_2.png');
-    }
-    .table__hIcon--3 {
-        background: url('../assets/img/Nomanclatura_3.png');
-    }
-    .table__hIcon--4 {
-        background: url('../assets/img/Nomanclatura_4.png');
-    }
+    
     .table__hIcon {
-        width: 20px;
-        height: 20px;
+        font-size: 1.2rem;
+        margin-right: .5rem;
         margin-right: .5rem;
         background-size: contain !important;
         background-repeat: no-repeat;
@@ -565,14 +554,14 @@ export default {
         font-size: 15px;
     }
     .table__content .table__row, .table__content .table__item {
-        border: 1px solid #f5f5f5;
+        border: 1px solid var( --accent3);
         border-top: 0;
     }
     .dark-blue {
-        background-color: #0b2842;
+        background-color: var(--tiker);
     }
     .light-blue {
-        background-color: #0b375e;
+        background-color: var(--tiker);
     }
     .table__row {
 
