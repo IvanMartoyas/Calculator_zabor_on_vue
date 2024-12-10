@@ -10,7 +10,7 @@
             <div class="overlay__menu" @click="isActive = false" :class="{'overlay__menu--active': isActive}"><div class="close__button"  @click="isActive = false"><img :src="require('@/assets/img/_close.png')" alt=""></div></div>
             
             <div class="tabs tabMenu" :class="{'tabMenu--active': isActive}">
-                
+                    
               <span 
                 class="tab tabMenu__item" 
                 v-for="(item, i) in menu_items" 

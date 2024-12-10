@@ -37,6 +37,6 @@ export const _menu_items = [
     {
         title: "Общий вид ограждения",
         slug: "General_view_fence",
-        active: true,
+        active: false,
     },
 ]

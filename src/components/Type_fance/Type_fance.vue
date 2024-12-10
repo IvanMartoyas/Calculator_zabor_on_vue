@@ -92,7 +92,6 @@ export default {
     },
 }
 </script>
-<style>
+<styles scoped>
     @import './style.css';
-
-</style>
+</styles>

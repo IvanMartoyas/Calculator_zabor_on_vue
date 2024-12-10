@@ -3,6 +3,7 @@
 :root {
   --font-family: 'Roboto', 'Open Sans', Arial;
   --border-radius: 0;
+  --size: 100px;
 
   --accent1: #212529;
   --accent2: #212529;
@@ -10,7 +11,7 @@
   --accent4: #f5f6f6;
   --accent5: #f2f2f2;
 
-  --yellow: #eae933;
+  --yellow: #00c0ed;
   --tiker: #212529;
   --bg1: var(--accent3);
   --bg3: #212529;
@@ -18,6 +19,7 @@
   --white: #ffffff;
   --hover-button: var(--yellow);
   --darck-gray: #585858;
+ 
 }
 #app {
   font-family: var(--font-family);
@@ -202,6 +204,14 @@ body {
   justify-content: flex-start;
 }
   
+
+.typeFance__item {
+  text-align: center;
+ color: var(--bg3);
+ cursor: pointer;
+ opacity: 0.3;
+
+}
 
   /* statistic начало */
   .statistic {
@@ -455,9 +465,15 @@ body {
     .statistic__paramValue ul {
       flex-basis: 40%;
     }
+    :root {
+      --size: 80px;
+    }
   }
 
   @media screen and (max-width: 980px) {
+    :root {
+      --size: 70px;
+    }
     .statistic__row--wrapper {
         display: flex;
         gap: .8rem;
@@ -513,6 +529,13 @@ body {
   }
 
   @media screen and (max-width: 768px) {
+    :root {
+      --size: 60px;
+    }
+    .calc__row {
+      /* display: block; */
+      flex-wrap: wrap;
+    }
     .calc__rowItem {
       padding: 0!important;
     }
@@ -565,5 +588,8 @@ body {
    }
    .statistic__paramTitle {
       bottom: -10px;
+   }
+   .statistic__row--fluid {
+    padding: 1rem;
    }
   }
