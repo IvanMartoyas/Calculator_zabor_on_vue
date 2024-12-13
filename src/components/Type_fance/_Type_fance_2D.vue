@@ -165,12 +165,12 @@ export default {
             this.$store.dispatch('setData_calc', this.data );
         },
         selectedDiametr(val) {
-            console.log("selectedCell_size ",val)
+ 
             this.data.size_panel.type_fance[1].params.selected_data.diameter_index = val;
             this.$store.dispatch('setData_calc', this.data );
         },
         selectedCell_size(val) {
-            console.log("selectedCell_size ",val)
+       
             this.data.size_panel.type_fance[1].params.selected_data.cell_size_index = val;
             this.$store.dispatch('setData_calc', this.data );
         },

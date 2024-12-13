@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="loader">
         <div class="calc_row calc__localRow">
             <div class="calc__rowItem">
                 <div class="calc__top calc__row">
@@ -12,9 +12,8 @@
                             :title="'SMART'" 
                             :info="'SMART'" 
                             :input="true" 
-                            img="_smart.jpg"
+                            :img="IMG_LIST.smart.src"
                             :input_data="data.Wickets.active_parametrs.smart"
-                        
                         ></Block_item>
                     </div>
             
@@ -24,7 +23,7 @@
                             :title="'BARS'" 
                             :info="'BARS'" 
                             :input="true" 
-                            img="_bars.jpg"
+                            :img="IMG_LIST.bars.src"
                             :input_data="data.Wickets.active_parametrs.bars"
                         
                         ></Block_item>
@@ -36,7 +35,7 @@
                             :title="'FANSE'" 
                             :info="'FANSE'" 
                             :input="true" 
-                            img="_fence.jpg"
+                            :img="IMG_LIST.fence.src"
                             :input_data="data.Wickets.active_parametrs.fance"
                         
                         ></Block_item>
@@ -249,7 +248,7 @@
         },
         data() {    
             return {
-
+                loader: false
             }
         },
         methods: {
@@ -306,6 +305,10 @@
                 return this.$store.getters.Weight;
             },
         },
+        mounted() {
+            this.IMG_LIST = this.$store.getters.IMAGES;
+            this.loader = true;
+        }
     }
 </script>
 <style lang="css" scoped>

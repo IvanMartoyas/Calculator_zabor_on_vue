@@ -2,7 +2,7 @@
     <div class="block_item"  :class="{active: _active_index}"> 
         <div class="block_item__item">
             <div class="block_item__img" @click="setActive()">
-                <img :src="require(`../../assets/img/${img}`)" :alt="title">
+                <img :src="img" :alt="title">
             </div>
             <div class="block_item__title" @click="setActive()">
               {{title}} 

@@ -5,7 +5,7 @@ import './registerServiceWorker'
 import store from './store'
 
     const routes = [
-        { path: '/', component: App },
+        { path: '/calc/', component: App },
     ]
   
     const router = createRouter({

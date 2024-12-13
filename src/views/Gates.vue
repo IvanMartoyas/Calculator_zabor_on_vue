@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="loader">
         <div class="calc_row calc__localRow">
             <div class="calc__rowItem">
                 <div class="calc__top calc__row">
@@ -12,7 +12,7 @@
                             :title="'SMART'" 
                             :info="'SMART'" 
                             :input="true" 
-                            img="_smart.jpg"
+                            :img="IMG_LIST.smart.src"
                             :input_data="data.Gates.active_parametrs.swing_smart"
                             :active_value="false"
                         ></Block_item>
@@ -24,7 +24,7 @@
                             :title="'BARS'" 
                             :info="'BARS'" 
                             :input="true" 
-                            img="_bars.jpg"
+                            :img="IMG_LIST.bars.src"
                             :input_data="data.Gates.active_parametrs.swing_bars"
                             :active_value="false"
                         ></Block_item>
@@ -36,7 +36,7 @@
                             :title="'FANSE'" 
                             :info="'FANSE'" 
                             :input="true" 
-                            img="_fence.jpg"
+                            :img="IMG_LIST.fence.src"
                             :input_data="data.Gates.active_parametrs.swing_fance"
                             :active_value="false"
                         ></Block_item>
@@ -57,7 +57,7 @@
                             :title="'SMART'" 
                             :info="'SMART'" 
                             :input="true" 
-                            img="_smart.jpg"
+                            :img="IMG_LIST.smart.src"
                             :input_data="data.Gates.active_parametrs.sliding_smart"
                             :active_value="false"
                         ></Block_item>
@@ -69,7 +69,7 @@
                             :title="'BARS'" 
                             :info="'BARS'" 
                             :input="true" 
-                            img="_bars.jpg"
+                            :img="IMG_LIST.bars.src"
                             :input_data="data.Gates.active_parametrs.sliding_bars"
                             :active_value="false"
                         ></Block_item>
@@ -81,7 +81,7 @@
                             :title="'FANSE'" 
                             :info="'FANSE'" 
                             :input="true" 
-                            img="_fence.jpg"
+                            :img="IMG_LIST.fence.src"
                             :input_data="data.Gates.active_parametrs.sliding_fance"
                             :active_value="false"
                         ></Block_item>
@@ -257,6 +257,7 @@
         },
         data() {    
             return {
+                loader: false
             }
         },
         methods: {
@@ -302,9 +303,6 @@
                 this.$store.dispatch('setData_calc', this.data );
             },
 
-
-
-
             // цвет
             selectedColor(value){ 
                 this.data.Gates.active_parametrs.collor_active = value;
@@ -332,6 +330,10 @@
                 return this.$store.getters.Weight;
             },
         },
+        mounted() {
+            this.IMG_LIST = this.$store.getters.IMAGES;
+            this.loader = true;
+        }
     }
 </script>
 <style lang="css" scoped>

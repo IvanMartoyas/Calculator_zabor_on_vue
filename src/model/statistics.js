@@ -36,12 +36,13 @@ function calc__statistics(_this) {
     try {
         let elemts = window.document.getElementById("table_price");
         elemts = elemts.querySelectorAll(".table__price span");
+
         // console.log("elemts ",elemts)
 
         let amount = 0; 
         elemts.forEach((element, index) => {
-            // console.log("value item", Number(element.innerHTML.replace('&nbsp;', '')))
-            amount += Number(element.innerHTML.replace('&nbsp;', ''));
+            // console.log(index, " value item", Number(element.innerHTML.replace(/\&nbsp;/g, '')))
+            amount += Number(element.innerHTML.replace(/\&nbsp;/g, ''));
         });
         // console.log("elemts ",elemts)
         // расчитывает общую стоимость

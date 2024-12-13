@@ -1,12 +1,12 @@
 <template>
-    <div class="diametr">
+    <div class="diametr" v-if="loader">
         <div class="calc__rowItem border-right">
             <div class="calc__top">
                 <div class="calc__title">{{ title }}</div>
             </div>
             <div class="calc__content calc__row">
                 <div class="diametr__img">
-                    <img src="@/assets/img/diameter-1.png" alt="Diametr">
+                    <img :src="IMG_LIST.diameter.src" alt="Diametr">
                 <div class="diametr__label">{{ values[_active_index] }}mm  </div>
             </div>
                 <div class="diametr__items">
@@ -33,17 +33,20 @@ export default {
     data() {
         return {
            _active_index: this.active_value || 0,
+           IMG_LIST: "",
+           loader: false,
         }
     },
     mounted() {
-       
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     methods: {
         setValue(val) {
             this._active_index = val;
             this.$emit('selected_value', val)
         }
-    }
+    },
 }
 </script>
 <style>

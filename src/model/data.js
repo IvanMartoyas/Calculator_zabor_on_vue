@@ -134,11 +134,11 @@ export const _data_calc = { // основные данные
             values: [
                 {
                     title: 'На фланец',
-                    img: 'post1.jpg'
+                    img: 'post1'
                 },
                 {
                     title: 'Под бетонирование',
-                    img: 'post1.jpg'
+                    img: 'post2'
                 },
             ]
         },
@@ -189,7 +189,7 @@ export const _data_calc = { // основные данные
             values: [
                 {
                     title: 'Скоба F24',
-                    img: 'fasteners.png',
+                    img: 'fasteners',
                 },
             ]
         },

@@ -100,27 +100,29 @@
                 <form class="popup__content" action="#" method="post">
                     <div class="popup__row">
                         <label for="name">Ваше имя</label>
-                        <input type="text" v-model="form.name" class="popup__input--text" name="name" id="name" placeholder="Ваше имя">
+                        <input type="text" required v-model="form.name" class="popup__input--text" name="name" id="name" placeholder="Ваше имя">
                     </div>
                     <div class="popup__row">
                         <label for="phone">Телефон</label>
-                        <input type="tel" class="popup__input--text" v-model="form.phone" name="phone" id="phone" placeholder="Телефон" required>
+                        <input type="tel"  required class="popup__input--text" v-model="form.phone" name="phone" id="phone" placeholder="Телефон">
                     </div>
                     <div class="popup__row">
                         <label for="massage">Коментарий</label>
                         <textarea type="tel" class="popup__input--text" v-model="form.massage" name="massage" id="massage" placeholder="Коментарий"></textarea>
                     </div>
+        
                     <div class="popup__row">
-                        <input type="checkbox" class="popup__input--checkbox" @click="form_policy_privacy = !form_policy_privacy" :checked="form_policy_privacy" name="policy_chek" required id="policy_chek"> 
-                        <label for="policy_chek"  @click="form_policy_privacy = !form_policy_privacy">Соглашаюсь с <a href="#">обработкой данных</a></label>
+                     
+                        <input type="checkbox" v-model="form.accepted_policy" class="popup__input--checkbox" @click="form.accepted_policy = !form.accepted_policy" :checked="form.accepted_policy" name="policy_chek" id="policy_chek"> 
+                        <label for="policy_chek"  @click="form.accepted_policy = !form.accepted_policy">Соглашаюсь с <a href="#">обработкой данных</a></label>
                     </div>
                     <input type="hidden" v-model="form.calculator_data" name="calculator_data">
                     <button type="sybmit" class="popup__submit " @click.prevent.stop="submit_calc_data()">Заказать</button>
 
-                    <!-- <div 
+                    <div 
                         v-if="form_massage != ''"  
                         :class="['form_masage', massageClass]"
-                        >{{ form_massage }}</div> -->
+                        >{{ form_massage }}</div>
                 </form>
             </div>                
         </dialog>
@@ -144,9 +146,6 @@ export default {
             order_call: false, // заказть звонок
             take_order: false,
             zone_index: 0,
-
-            form_policy_privacy: false,
-
             massageClass: true,
             form_massage: '',
             popup_massage_dalay: 5000,
@@ -155,6 +154,7 @@ export default {
                 name: '',
                 phone: '',
                 massage: '',
+                accepted_policy: false, 
                 calculator_data: '',
             }
         }
@@ -186,19 +186,34 @@ export default {
         submit_calc_data() {
             let _this = this;
 
-            if(this.form.phone == "") {
-                this.form_massage = "Заявка была отправленна, мы свяжемся с вами в ближайшее время!";
+            if(this.form.phone == "" || this.form.name == "") {
+                this.form_massage = "Имя и телефон должны быть заполненны!";
+                // Заявка была отправленна, мы свяжемся с вами в ближайшее время!
                 this.massageClass = 'error';
 
                 setTimeout(()=>{
                     _this.form_massage = "";
-                    _this.take_order = false;
+                    // _this.take_order = false;
                     this.massageClass = "";
                 }, this.popup_massage_dalay)
 
                 return;
             }
 
+            console.log("polycy ",this.form.accepted_policy)
+            if(!this.form.accepted_policy) {
+                this.form_massage = "Перед отправкой согласитись с условиями обрабодки данных";
+                // Заявка была отправленна, мы свяжемся с вами в ближайшее время!
+                this.massageClass = 'error';
+
+                setTimeout(()=>{
+                    _this.form_massage = "";
+                    // _this.take_order = false;
+                    this.massageClass = "";
+                }, this.popup_massage_dalay)
+
+                return;
+            }
             
             this.form.calculator_data = get_params(this.data, this.form)
 

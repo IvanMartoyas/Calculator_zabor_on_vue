@@ -1,30 +1,32 @@
 <template>
     <div class="img_radio">
-        <div class="calc__rowItem">
-            <div class="calc__top">
-                <div class="calc__title">{{ title }}</div>
+    
+        <div class="calc__top">
+            <div class="calc__title">{{ title }}</div>
+        </div>
+          
+        <div class="calc__content calc__row">
+            
+            <div class="img_radio__img">
+                <img :src="img" :alt="title">
             </div>
-            <div class="calc__content calc__row">
-                <div class="img_radio__img">
-                    <img :src="require(`../../assets/img/${img}`)" :alt="title">
-            </div>
-                <div class="img_radio__items">
-                    <div 
-                        class="img_radio__item"
-                        v-for="(item, i) in values"
-                        :key="i"
-                        @click="setValue(i)"
-                    >
-                        <div class="img_radio__subtitle">{{ item.subTitle  }}</div>
-                        <div class="img_radio__block">
-                            <div class="img_radio__radio" :class="{active: _active_index == i}"></div>
-                            <dvi class="img_radio__title">{{ item.title }}</dvi>
-                        </div>
-                        
+            <div class="img_radio__items">
+                <div 
+                    class="img_radio__item"
+                    v-for="(item, i) in values"
+                    :key="i"
+                    @click="setValue(i)"
+                >
+                    <div class="img_radio__subtitle">{{ item.subTitle  }}</div>
+                    <div class="img_radio__block">
+                        <div class="img_radio__radio" :class="{active: _active_index == i}"></div>
+                        <dvi class="img_radio__title">{{ item.title }}</dvi>
                     </div>
+                    
                 </div>
-                
             </div>
+                
+   
         </div>      
 
     </div>

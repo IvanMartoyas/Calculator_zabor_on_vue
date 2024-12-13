@@ -1,8 +1,9 @@
 <template>
-    <div>
+    <div v-if="loader">
         
-        <div class="calc__row">
-            <div class="calc__rowItem">
+        <div class="calc__row calc__localRow align-start">
+            
+            <div class="calc__rowItem border-right">
                 <Img_select
                     class=""
                     :title="data.fasteners_fence.fasteners_type_fances.title"
@@ -12,15 +13,19 @@
                     @img_selected="img_selected"
                 ></Img_select>
             </div> 
+            <div class="calc__rowItem">
+                <Img_radio
+                    :title="data.fasteners_fence.fixing_panel_post.title"
+                    :values="data.fasteners_fence.fixing_panel_post.values"
+                    :active_value="data.fasteners_fence.active_parametrs.fasteners_type_fances"
+                    :img="IMG_LIST.fasteners.src"
+                    @selected_value="setFasteners_fence"
+                ></Img_radio>
+            </div>  
+
         </div>
 
-        <Img_radio
-            :title="data.fasteners_fence.fixing_panel_post.title"
-            :values="data.fasteners_fence.fixing_panel_post.values"
-            :active_value="data.fasteners_fence.active_parametrs.fasteners_type_fances"
-            :img="'fasteners.png'"
-            @selected_value="setFasteners_fence"
-        ></Img_radio>
+       
 
         <div class="">
             <Color_picker 
@@ -100,11 +105,12 @@ export default {
     },
     data() {    
         return {
-           
+            loader: false
         }
     },
     mounted() {
-
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     computed: {
         data() {

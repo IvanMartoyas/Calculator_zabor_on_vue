@@ -30,7 +30,6 @@
 
 .block_item.active img {
     border: 2px solid var(--tiker)!important;
-    width: 100px;
 }
 
 .block_item__title {

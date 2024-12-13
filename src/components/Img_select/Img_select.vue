@@ -1,10 +1,12 @@
 <template>
-    <div class="img_select">
+    <div class="img_select" v-if="loader">
         <div class="calc__top calc__row">
             <div class="calc__title">{{ title }}</div>
         </div>
         <div class="calc__content">
 
+
+        
             <div class="typeFance">
                 <div 
                     v-for="(item ,i) in values"
@@ -14,7 +16,7 @@
                     :class="{active: _active_index == i}"
                 >   
                     <div class="typeFance__img">
-                        <img :src="require(`../../assets/img/${item.img}`)" :alt="item.title">
+                        <img :src="IMG_LIST[item.img].src" :alt="item.title">
                     </div>
                     <div class="typeFance__title">
                         {{item.title}} <i v-if="_info_hover"> ?</i>
@@ -44,10 +46,12 @@ export default {
         return {
            _active_index: this.active_value || 0,
            _info_hover: this.info_hover || false,
+           loader: false
         }
     },
     mounted() {
-       
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     methods: {
         setValue(val) {

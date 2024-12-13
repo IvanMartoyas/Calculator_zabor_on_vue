@@ -1,5 +1,5 @@
 <template>
-    <div class="range_vertical__werapper">
+    <div class="range_vertical__werapper" v-if="loader">
         <div class="calc__top calc__row">
             <div class="calc__title">{{ title }}  
         
@@ -24,7 +24,7 @@
                     :active_value = "_active_value"
                     @selectedValue="selectedValue"
                 ></Range_vertical_slider>
-                <img class="img_range" src="@/assets/img/man.png">
+                <img class="img_range" :src="IMG_LIST.man.src">
             </div>
         </div>
     </div>
@@ -42,10 +42,12 @@ export default {
         return {
             _values: this.values,
             _active_value: this.active_value,
+            loader: false
         }
     },
     mounted() {
-        // console.log('this.values[this.active_value] ',this._values[this._active_value])
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     methods: {
         selectedValue(index){ 

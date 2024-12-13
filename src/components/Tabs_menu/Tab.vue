@@ -7,7 +7,11 @@
                 @click="isActive = true"
             >Меню</div>
 
-            <div class="overlay__menu" @click="isActive = false" :class="{'overlay__menu--active': isActive}"><div class="close__button"  @click="isActive = false"><img :src="require('@/assets/img/_close.png')" alt=""></div></div>
+            <div class="overlay__menu" @click="isActive = false" :class="{'overlay__menu--active': isActive}">
+                <div class="close__button"  @click="isActive = false">
+                    <i class="bi bi-x-lg"></i>
+                </div>
+            </div>
             
             <div class="tabs tabMenu" :class="{'tabMenu--active': isActive}">
                     
@@ -21,6 +25,7 @@
               >{{item.title}}</span>
             </div>
             <div class="tabs-content tabContent">
+         
                 <div class="tab-item tabContent__item">
                     <component :is="componentId"></component>
                 </div>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="loader">
         <div class="calc__row calc__localRow align-start">
             <div class="calc__rowItem border-right">
                 <Range_vertical 
@@ -16,14 +16,16 @@
                 <div class="calc__title">Тип ограды</div>
                 <div class="calc__subTitle"></div>
                 <div class="calc__content">
+               
                     <div class="calc__row type_fance_variants">
                         <div class="type_fance_variants__item" :class="{active: isVariant}" @click="setVariant(true)">
-                            <img src="@/assets/img/type123.png" alt="type_fance_variants">
-                            <div class="type_fance_variants__label">C выпуском</div>
+                            <img :src="IMG_LIST.type123.src" alt="type_fance_variants">
+                            <div :class="type_fance_variants__label">C выпуском</div>
                         </div>
+                   
                         <div class="type_fance_variants__item" :class="{active: !isVariant}" @click="setVariant(false)">
-                            <img src="@/assets/img/type123.png" alt="type_fance_variants">
-                            <div class="type_fance_variants__label">Безопастная</div>
+                            <img :src="IMG_LIST.type123.src" alt="type_fance_variants">
+                            <div :class="type_fance_variants__label">Безопастная</div>
                         </div>
                     </div>
                 </div>
@@ -141,11 +143,16 @@ export default {
     data() {    
         return {
             isVariant: true, // вариант тех ограды первый или второй
+            loader: false
         }
     },
     mounted() {
         this.setVariant(this.type_fance.params.selected_data.fance_variant);
+
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
+    
     computed: {
         data() {
             return this.$store.getters.Data_calc;

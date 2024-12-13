@@ -6,6 +6,8 @@ import { price } from '@/model/parice'; // цены
 import { statisticks, Statistics } from '@/model/statistics'; // статистика
 import { _values_weight, WEIGHT } from '@/model/weight_table'; // статистика
 
+import {IMG_LIST} from '@/assets/img/img_list'; // все фотографии переведены в этом файле в base64
+
 var _ROUTER_PARAMS = 0;
 
 var _STSTISTICS = 0;
@@ -22,6 +24,8 @@ export default createStore({
     Price: price,
     Weight: _values_weight,
     Statisticks: statisticks,
+
+    IMAGES: IMG_LIST,
   },
   mutations: {
     _menu_itemsF(state, data) {
@@ -179,6 +183,8 @@ export default createStore({
     Price: s=> s.Price,
     Weight: s=> s.Weight,
     Statisticks: s=> s.Statisticks,
+
+    IMAGES: s=>s.IMAGES,
   },
   modules: {
   }

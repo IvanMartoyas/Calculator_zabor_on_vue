@@ -2,9 +2,12 @@ export const price = {
     amount: {
         // расчитывает стоимость и передаёт её в общую статистику в vuex
         addSumm(number){ // добавляет стоимость выбранного элемента 
+
+            // console.log('this.amount_price ',number)
             this.amount_price = Math.round(Number(number));
             return this.amount_price;
-           // console.log('this.amount_price ',this.amount_price)
+
+        
         },
         amount_price: 10,// общая стоимость
 
@@ -776,7 +779,7 @@ export const price = {
     },
     gates: {
         getGates(type, action, index) {
-            console.log("index ", index)
+            // console.log("index ", index)
             try {
                 // .action.cost[index]
                 return this[type][action].cost[index];

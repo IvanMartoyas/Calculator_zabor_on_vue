@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="loader">
 
         <div class="type_fill">
             <div class="calc__rowItem">
@@ -11,7 +11,7 @@
 
                         <div class="type_fill__item">
                             <div class="type_fill__img" @click="setWidth('СББ')">
-                                <img :src="require('../assets/img/setka1.jpg')" alt="Тип заполнения">
+                                <img :src="IMG_LIST.setka1.src" alt="Тип заполнения">
                             </div>
                             <div class="type_fill__checkBlock">
                                 <div @click="sbb_check = !sbb_check, pbb_check = false, setWidth('СББ')" class="custom_checkbox type_fill__checkbox" :class="{active: sbb_check}">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="type_fill__item">
                             <div class="type_fill__img" @click="setWidth('ПББ')">
-                                <img :src="require('../assets/img/setka2.jpg')" alt="Тип заполнения">
+                                <img :src="IMG_LIST.setka2.src" alt="Тип заполнения">
                             </div>
                             <div class="type_fill__checkBlock">
                                 <div @click="pbb_check = !pbb_check, sbb_check = false, setWidth('ПББ')" class="custom_checkbox type_fill__checkbox" :class="{active: pbb_check}">
@@ -126,6 +126,7 @@ export default {
             sbb_check: false,
             pbb_check: false,
             width: 0, 
+            loader: false
         }
     },
     mounted() {
@@ -135,6 +136,10 @@ export default {
         } else {
             this.width = width;
         }
+
+           
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     methods: {
         selectedColor(value){ 

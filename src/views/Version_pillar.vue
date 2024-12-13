@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="" v-if="loader">
         
         <div class="calc__row">
             <div class="calc__rowItem">
@@ -52,7 +52,7 @@
             </div>
             <div class="calc__content calc__row">
                 <div class="cell_size__img">
-                    <img src="@/assets/img/stolb.png" alt="reyki">
+                    <img :src="IMG_LIST.stolb.src" alt="stolb">
                 </div>
                 <div class="stolb__chack"  @click="setStolb">
                     <label for="stolb1"  @click="setStolb">Крышка для столба</label>
@@ -173,6 +173,7 @@
  import Diametr from '@/components/Diametr/Diametr.vue';
  import Cell_size from '@/components/Cell_size/Cell_size.vue';
 
+ 
 export default {
     components: {
         Color_picker,
@@ -184,7 +185,7 @@ export default {
     },
     data() {    
         return {
-        
+            loader: false,
         }
     },
     computed: {
@@ -202,6 +203,8 @@ export default {
         },
     },
     mounted() {
+        this.IMG_LIST = this.$store.getters.IMAGES;
+        this.loader = true;
     },
     methods: {
         size_panel_selectedColor(value){ 
@@ -213,8 +216,10 @@ export default {
             this.$store.dispatch('setData_calc', this.data );
         },
         img_selected(val) {
+            
             this.data.version_pillar.active_parametrs.type_post_index = val;
             this.$store.dispatch('setData_calc', this.data );
+
         },
         sechenie_pillar_value(val) {
             this.data.version_pillar.active_parametrs.sechenie_pillar = val;

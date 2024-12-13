@@ -45,7 +45,7 @@ export default {
                 this.input_model = 0;
             }
             this.$emit('selectedValue', this.input_model);
-            console.log("set")
+            // console.log("set")
         }
     },
     computed: {

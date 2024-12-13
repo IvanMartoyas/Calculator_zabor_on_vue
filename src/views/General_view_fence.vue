@@ -1,6 +1,6 @@
 <template>
     <div class="main-banner-wrapper">
-        <img src="@/assets/img/main-banner.png" alt="main-banner">
+        <!-- <img src="@/assets/img/main-banner.png" alt="main-banner"> -->
     </div>
 </template>
 <style lang="css" scoped>

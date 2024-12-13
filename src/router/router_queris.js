@@ -1,3 +1,10 @@
+
+let publicPath = '/calc/';
+let host = window.location.host;
+let full_url = window.location.protocol + "//" + host + publicPath;
+
+
+
 // в array_empty_data храню список get параметров в которые буду записывать массивы
 let array_empty_data = {
     general_parameters: '',
@@ -9,6 +16,7 @@ let array_empty_data = {
     Gates: '',
 }
 
+
 export const ROUTER = {
 
     // при первой загрузке сайта проверяю есть ли вообще get параметры в url
@@ -18,6 +26,7 @@ export const ROUTER = {
     // reset_url сброс настроек калькулятора
 
     checkd_url(_this, _name) {
+      
         if(_this.$route.query[_name] == undefined){ 
             return false;
         } else {
@@ -43,11 +52,12 @@ export const ROUTER = {
     set_queris(_this, _params) {// сслыка на this и массив для сохранения
 
         let data = JSON.stringify(_params);
-        _this.$router.push({name: _this.$route.name, query: {data: data}});
+        _this.$router.push({path: 'calc',name: _this.$route.name, query: {data: data}});
     },
 
     reset_url(_this) {
-        _this.$router.push({name: _this.$route.name, query: ''});
+      
+        _this.$router.push({path: 'calc',name: _this.$route.name, query: ''});
         setTimeout(()=>{window.location.reload();},100)
         
     }
@@ -65,9 +75,8 @@ export class ROUTER_PARAMS {
     }
 
     checkd_url() {
-
         // если тут нет данных то возможно это из за того что сайт ещё не успел заргузиться
-        if(this._this.$route.query.data == undefined){ 
+        if(this._this.$route.query.data == undefined) { 
             return false;
         } else {
             return true;
@@ -75,17 +84,15 @@ export class ROUTER_PARAMS {
     }
 
     get_queris() {
-        
         return JSON.parse(this._this.$route.query.data);
     }
 
     set_queris(_params) {// сслыка на this и массив для сохранения
         let data = JSON.stringify(_params);
-        this._this.$router.push({name: this._this.$route.name, query: {data: data}});
+        this._this.$router.push({query: {data: data}});
     }
 
     reset_url() {
-        this._this.$router.push({name: this._this.$route.name, query: ''});
-        setTimeout(()=>{window.location.reload();},100)
+        setTimeout(()=>{window.location.replace(full_url)},100)
     }
 }
