@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="load">
         <div class="calc__row calc__localRow align-start">
             <div class="calc__rowItem border-right ">
                 <Type_fance></Type_fance>
@@ -49,9 +49,13 @@ export default {
     data() {    
         return {
             componentId: 'Type_fance_3D',
+            load: false
         }
     },
     mounted() {
+
+        this.data.size_panel.active_parametrs.visited_page = true;
+        this.$store.dispatch('setData_calc', this.data );
 
         let index = this.data.size_panel.active_parametrs.type_fance_index || 0;
         if(index == 0 ) {
@@ -63,6 +67,7 @@ export default {
         if(index == 2 ) {
             this.componentId = 'TexOgrada';
         }      
+        this.load = true;
     },
     computed: {
         data() {

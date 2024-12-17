@@ -26,7 +26,7 @@
             // данные точно приходят
     
             // $mail_to = "ivanmart2017@yandex.ru";
-            $mail_to = "stsetka@yandex.ru";
+             $mail_to = "stsetka@yandex.ru";
             $subject = 'Заявка с сайта - калькулятор забора.';
             
             $name = 'Без имени';
@@ -60,8 +60,8 @@
         
             // headers
             $headers[] = 'MIME-Version: 1.0';
-            $headers[] = 'Content-type: text/html; charset=UTF-8';
-            $headers[] = '';
+            $headers[] .= 'Content-type: text/html; charset=UTF-8';
+            $headers[] .= "From: Заявка с калькулятор"; 
             
             /*
                 $content_mail = '
@@ -77,9 +77,7 @@
                */
                  $content_mail = '
                     <div class="_mail">
-                       <b>Имя: '.$name.'</b> <br>
-                        <b>Телефон: '.$phone.'</b> <br>
-                        <b>Сообщение: '.$massage.'</b> <br>
+                        <b>'.$calculator_data.'</b> <br>
                     </div>
                 ';
                if(mail($mail_to, $subject, $content_mail, implode("\r\n", $headers))) {

@@ -156,6 +156,10 @@ export default createStore({
     init_weight({ commit, state },data) {
       _WEIGHT = new WEIGHT(data);
       weight_start_calc = true;
+      if(weight_start_calc) {
+        _WEIGHT.calc__weight__update()
+      }
+
     },
     setWeight({ commit, state },data) {
       commit('_setWeight',data);
@@ -167,6 +171,9 @@ export default createStore({
     init_statistiks({ commit, state },data) {
       _STSTISTICS = new Statistics(data);
       statistics_start_calc = true;
+      if(statistics_start_calc) {
+        _STSTISTICS.calc__statistics__update()
+      }
     },
     setStatisticks({ commit, state },data) {
       commit('_setStatisticks',data);

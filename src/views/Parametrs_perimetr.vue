@@ -1,4 +1,5 @@
 <template>
+  <div v-if="loader">
     <Nomeclatura></Nomeclatura>
     <div class="calculator-page__third-screen wrapper">
   
@@ -13,7 +14,7 @@
                                 <div class="statistic__param">
                                     <span class="statistic__paramTitle"> Цена забора:</span>
                                     <span class="statistic__paramDot"> </span>
-                                    <span class="statistic__paramValue">{{ Statisticks.amount_price.toLocaleString()  }} Руб</span>
+                                    <span class="statistic__paramValue">{{ amountPrice }} Руб</span>
                                 </div>
                                 <div class="statistic__param">
                                     <span class="statistic__paramTitle">Цена погонного метра:</span>
@@ -91,6 +92,7 @@
         <div class="textCalc">
             Калькулятор 3D забора онлайн - это удобный инструмент, который позволяет провести расчет забора без лишних трудностей и с минимальными затратами времени. Вам больше не придется путаться в многочисленных параметрах и условиях, вы сможете рассчитать забор, используя калькулятор, прямо у себя дома. Расчет забора онлайн калькулятор предлагает выполнить в несколько этапов. Вам потребуется ввести основные данные о заборе (общие параметры, размер панели, вариант исполнение столба, крепежи, дополнительные элементы, калитки, ворота и общий вид ограждения) и калькулятор автоматически проведет все необходимые расчеты. Все расчеты и цены носят ознакомительный характер, поэтому за полной сметой необходимо обращаться к нашим менеджерам.
         </div>
+
         <dialog :open="take_order" v-if="take_order" class="popup">
             <div class="popup__wrapper">
                 <div class="popup__top">
@@ -126,15 +128,16 @@
                 </form>
             </div>                
         </dialog>
-        
 
     </div>
+  </div>
 </template>
 <script>
 import Nomeclatura from './Nomanclatura.vue';
 
 import { get_params } from '@/assets/js/generate_parametrs_table';
 import { ROUTER_PARAMS } from '@/router/router_queris';
+
 var __ROUTER_PARAMS = 0;
 export default {
     components: {
@@ -156,7 +159,9 @@ export default {
                 massage: '',
                 accepted_policy: false, 
                 calculator_data: '',
-            }
+            },
+
+            loader: false
         }
     },
     methods: {
@@ -177,13 +182,18 @@ export default {
             __ROUTER_PARAMS.reset_url();
         },
         get_params() {
-            this.form.calculator_data = get_params(this.data, this.form);
+            let statistck = {
+                weight: Math.round(this.Weight.amount / 1000).toLocaleString()+ 'Кг',
+                amountPrise: this.Statisticks.amount_price.toLocaleString() + 'Руб',
+                running_meter: this.Statisticks.running_meter.toLocaleString()+'Руб',
+            };
+            this.form.calculator_data = get_params(this.data, this.form, statistck);
         },
         open_popup() {
             this.take_order = true;
-            this.get_params();
+            // this.get_params();
         },
-        submit_calc_data() {
+        async submit_calc_data() {
             let _this = this;
 
             if(this.form.phone == "" || this.form.name == "") {
@@ -200,7 +210,7 @@ export default {
                 return;
             }
 
-            console.log("polycy ",this.form.accepted_policy)
+     
             if(!this.form.accepted_policy) {
                 this.form_massage = "Перед отправкой согласитись с условиями обрабодки данных";
                 // Заявка была отправленна, мы свяжемся с вами в ближайшее время!
@@ -215,7 +225,7 @@ export default {
                 return;
             }
             
-            this.form.calculator_data = get_params(this.data, this.form)
+            this.get_params();
 
             const requestOptions = {
                 method: "POST",
@@ -225,22 +235,42 @@ export default {
                 body: JSON.stringify({ ...this.form})
             };
 
-            fetch("mail.php", requestOptions)
-                // .then(response => console.log("response ",response))
-                .then(response => response.json())
-                .then(response => {
-                    
-                })
+            try {
+                let theme = 'sp-theme-master/calc/mail.php'
+                let publicPath = `/wp-content/themes/${theme}`;
+                let host = window.location.host;
+                let full_url = window.location.protocol + "//" + host + publicPath;
+
+                // let full_url = 'https://zavod3dsetki.ru/wp-content/themes/sp-theme-master/calc/mail.php';
+                // console.log("host ",full_url)
+                // let URL = 'http://ваш сайт.com/wp-content/themes/ваша тема/action.php';
+                
+                let response = await fetch(full_url, requestOptions)
+     
+           
+                if(response.status == 200) {
+                    response = response.json();
+                    this.form_massage = "Заявка была отправленна, мы свяжемся с вами в ближайшее время!"
+                    this.massageClass = "sucsess";
+                    console.log("response ssucsess", response);
+                } else {
+                    console.log("response  error", response);
+                }
+                
 
                 
-                this.form_massage = "Заявка была отправленна, мы свяжемся с вами в ближайшее время!"
-                this.massageClass = "sucsess";
+               
 
                 setTimeout(()=>{
                     _this.form_massage = "";
                     _this.take_order = false;
                     this.massageClass = "";
                 },this.popup_massage_dalay)
+            }
+            catch(e){ 
+                console.log("error: ", e.message)
+            }
+           
       
         },
     },  
@@ -250,6 +280,13 @@ export default {
         this.order_call = this.data.Parametrs_perimetr.active_parametrs.order_call || false;
         
         __ROUTER_PARAMS = new ROUTER_PARAMS(this);
+        
+        let _this = this;
+  
+        setTimeout(()=>{
+            _this.amountPrice = _this.Statisticks.amount_price.toLocaleString();
+        },300)
+        this.loader = true;
     },
     computed: {
         data() {
@@ -264,6 +301,17 @@ export default {
         Weight () {
             return this.$store.getters.Weight;
         },
+        amountPrice: {
+            set(val) {
+                return val;
+            },
+            get() {
+                return this.Statisticks.amount_price.toLocaleString();
+            }
+        },
+        // amountWeight() {
+        //     return ''
+        // }
     },
 }
 

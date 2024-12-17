@@ -109,6 +109,10 @@ export default {
         }
     },
     mounted() {
+        // посетил эту страницу
+        this.data.fasteners_fence.active_parametrs.visited_page = true;
+        this.$store.dispatch('setData_calc', this.data );
+
         this.IMG_LIST = this.$store.getters.IMAGES;
         this.loader = true;
     },

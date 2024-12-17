@@ -1,5 +1,5 @@
 // get_params преобразует данные из модели вчитаемый вид в форме таблици
-export function get_params(data, _form) {
+export function get_params(data, _form, _statistck) {
     
     /*
         <div class="table_result__head">Общие параметры</div>
@@ -51,12 +51,6 @@ export function get_params(data, _form) {
                 <div class="table_result__label">Клиент просил перезвонить?</div>
                 <div class="table_result__value">
                     ${data.Parametrs_perimetr.active_parametrs.order_call? 'Да':'Нет'}
-                </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">Способ доставки</div>
-                <div class="table_result__value">
-                    ${deliver_aders()}
                 </div>
             </div>
         </div>
@@ -258,190 +252,208 @@ export function get_params(data, _form) {
                 `;
         }
     }
-
-    let Size_panel = `
-        <div class="table_result__head"> Размер панели </div>
-        <div class="table_result__content">
-            ${size_panel_statistic()}
-        </div>
-    `;
-
-    // Вариант исполнения столба
-    let version_pillar = `
-
-        <div class="table_result__head">Вариант исполнения столба</div>
-        <div class="table_result__content">
-        
-            <div class="table_result__row">
-                <div class="table_result__label">Тип крепления</div>
-                <div class="table_result__value">
-                    ${data.version_pillar.type_post.values[data.version_pillar.active_parametrs.type_post_index].title}
-                </div>
+    let Size_panel = '';
+     // есил пользователь не посещал страницу то нечего не вывожу
+     if(data.size_panel.active_parametrs.visited_page) {
+        Size_panel = `
+            <div class="table_result__head"> Размер панели </div>
+            <div class="table_result__content">
+                ${size_panel_statistic()}
             </div>
+        `;
+     } 
+   
+    let version_pillar = '';
+    if(data.version_pillar.active_parametrs.visited_page) {
+        // Вариант исполнения столба
+        version_pillar = `
 
-            <div class="table_result__row">
-                <div class="table_result__label">Высота</div>
-                <div class="table_result__value">
-                    ${data.version_pillar.height.values[data.version_pillar.active_parametrs.height_fance] / 1000 }М
+            <div class="table_result__head">Вариант исполнения столба</div>
+            <div class="table_result__content">
+            
+                <div class="table_result__row">
+                    <div class="table_result__label">Тип крепления</div>
+                    <div class="table_result__value">
+                        ${data.version_pillar.type_post.values[data.version_pillar.active_parametrs.type_post_index].title}
+                    </div>
                 </div>
-            </div>
 
-            <div class="table_result__row">
-                <div class="table_result__label">Сечение столба</div>
-                <div class="table_result__value">
-                    ${data.version_pillar.sechenie_pillar.values[data.version_pillar.active_parametrs.sechenie_pillar ]  }ММ
+                <div class="table_result__row">
+                    <div class="table_result__label">Высота</div>
+                    <div class="table_result__value">
+                        ${data.version_pillar.height.values[data.version_pillar.active_parametrs.height_post] / 1000 }М
+                    </div>
                 </div>
-            </div>
-           
-            <div class="table_result__row">
-                <div class="table_result__label">Толщина стенки столба</div>
-                <div class="table_result__value">
-                    ${data.version_pillar.weight_wall.values[data.version_pillar.active_parametrs.weight_wall]  }ММ
+
+                <div class="table_result__row">
+                    <div class="table_result__label">Сечение столба</div>
+                    <div class="table_result__value">
+                        ${data.version_pillar.sechenie_pillar.values[data.version_pillar.active_parametrs.sechenie_pillar ]  }ММ
+                    </div>
                 </div>
+            
+                <div class="table_result__row">
+                    <div class="table_result__label">Толщина стенки столба</div>
+                    <div class="table_result__value">
+                        ${data.version_pillar.weight_wall.values[data.version_pillar.active_parametrs.weight_wall]  }ММ
+                    </div>
+                </div>
+                
+                <div class="table_result__row">
+                    <div class="table_result__label">Крышка для столба</div>
+                    <div class="table_result__value">
+                        ${data.version_pillar.active_parametrs.post_cover? 'Есть':'Нет'  }
+                    </div>
+                </div>
+
+                <div class="table_result__row">
+                    <div class="table_result__label">Цвет</div>
+                    <div class="table_result__value">
+                    ${data.version_pillar.colors[data.version_pillar.active_parametrs.collor_active].title }
+                    </div>
+                </div>
+
             </div>
             
-            <div class="table_result__row">
-                <div class="table_result__label">Крышка для столба</div>
-                <div class="table_result__value">
-                    ${data.version_pillar.active_parametrs.post_cover? 'Есть':'Нет'  }
-                </div>
-            </div>
-
-            <div class="table_result__row">
-                <div class="table_result__label">Цвет</div>
-                <div class="table_result__value">
-                ${data.version_pillar.colors[data.version_pillar.active_parametrs.collor_active].title }
-                </div>
-            </div>
-
-        </div>
-        
-    `;
-
-    let fasteners_fence = `
-        <div class="table_result__head">Крепежи для забора</div>
-        <div class="table_result__content">
-        
-            <div class="table_result__row">
-                <div class="table_result__label">Тип крепления</div>
-                <div class="table_result__value">
-                    ${data.fasteners_fence.fasteners_type_fances.values[data.fasteners_fence.active_parametrs.fasteners_type_fances].title}
-                </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">Крепление к столбу</div>
-                <div class="table_result__value">
-                    ${data.fasteners_fence.fixing_panel_post.values[data.fasteners_fence.active_parametrs.fixing_panel_post].title}
-                </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">Цвет ограждения</div>
-                <div class="table_result__value">
-                    ${data.fasteners_fence.colors[data.fasteners_fence.active_parametrs.collor_active].title}
-                </div>
-            </div>
-
-        </div>
-    `;
-
-    let Additional_elements_fence = `
-        <div class="table_result__head">Дополнительные элементы ограждения</div>
-        <div class="table_result__content">
-    
-            <div class="table_result__row">
-                <div class="table_result__label">Ширина ${data.Additional_elements_fence.active_parametrs.type_filling.type }</div>
-                <div class="table_result__value">
-                    ${data.Additional_elements_fence.active_parametrs.type_filling.width}
-                </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">L насадка</div>
-                <div class="table_result__value">
-                    ${data.Additional_elements_fence.active_parametrs.L_nasadca}
-                </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">Цвет ограждения</div>
-                <div class="table_result__value">
-                    ${data.Additional_elements_fence.colors[data.Additional_elements_fence.active_parametrs.collor_active].title}
-                </div>
-            </div>
-
-        </div>
-    `;
-    function wickets_active_params() {
-            let active_params = data.Wickets.active_parametrs;
-            let string ='';
-            if(active_params.smart != 0) {
-                string += `
-                    <div class="table_result__row">
-                        <div class="table_result__label">Количество калиток SMART</div>
-                        <div class="table_result__value">
-                            ${active_params.smart}
-                        </div>
-                    </div>
-                    <div class="table_result__row">
-                        <div class="table_result__label">Ширина проёма SMART</div>
-                        <div class="table_result__value">
-                            ${data.Wickets.opening_width_smart.values[active_params.opening_width_smart]}
-                        </div>
-                    </div>
-                `;
-            }
-            if(active_params.fance != 0) {
-                string += `
-                    <div class="table_result__row">
-                        <div class="table_result__label">Количество калиток FANCE</div>
-                        <div class="table_result__value">
-                            ${active_params.fance}
-                        </div>
-                    </div>
-                    <div class="table_result__row">
-                        <div class="table_result__label">Ширина проёма FANCE</div>
-                        <div class="table_result__value">
-                            ${data.Wickets.opening_width_fance.values[active_params.opening_width_fance]}
-                        </div>
-                    </div>
-
-                `;
-            }
-            if(active_params.bars != 0) {
-                string += `
-                    <div class="table_result__row">
-                        <div class="table_result__label">Количество калиток BARS</div>
-                        <div class="table_result__value">
-                            ${active_params.bars}
-                        </div>
-                    </div>
-                    <div class="table_result__row">
-                        <div class="table_result__label">Ширина проёма BARS</div>
-                        <div class="table_result__value">
-                            ${data.Wickets.opening_width_bars.values[active_params.opening_width_bars]}
-                        </div>
-                    </div>
-                `;
-            }
-
-            return string;
+        `;
     }
-    let Wickets = `
-        <div class="table_result__head">Общие параметры</div>
-        <div class="table_result__content">
-            ${wickets_active_params()}
-            <div class="table_result__row">
-                <div class="table_result__label">Высота калитки</div>
-                <div class="table_result__value">
-                    ${data.Wickets.height.values[data.Wickets.active_parametrs.height] / 1000}м
+    let fasteners_fence = '';
+    if(data.fasteners_fence.active_parametrs.visited_page) {
+        fasteners_fence = `
+            <div class="table_result__head">Крепежи для забора</div>
+            <div class="table_result__content">
+            
+                <div class="table_result__row">
+                    <div class="table_result__label">Тип крепления</div>
+                    <div class="table_result__value">
+                        ${data.fasteners_fence.fasteners_type_fances.values[data.fasteners_fence.active_parametrs.fasteners_type_fances].title}
+                    </div>
                 </div>
-            </div>
-            <div class="table_result__row">
-                <div class="table_result__label">Цвет</div>
-                <div class="table_result__value">
-                    ${data.Wickets.colors[data.Wickets.active_parametrs.collor_active].title}
+                <div class="table_result__row">
+                    <div class="table_result__label">Крепление к столбу</div>
+                    <div class="table_result__value">
+                        ${data.fasteners_fence.fixing_panel_post.values[data.fasteners_fence.active_parametrs.fixing_panel_post].title}
+                    </div>
                 </div>
+                <div class="table_result__row">
+                    <div class="table_result__label">Цвет ограждения</div>
+                    <div class="table_result__value">
+                        ${data.fasteners_fence.colors[data.fasteners_fence.active_parametrs.collor_active].title}
+                    </div>
+                </div>
+
             </div>
-        </div>
-    `;
+        `;
+    }
+    let Additional_elements_fence = '';
+    if(data.Additional_elements_fence.active_parametrs.visited_page) {
+        Additional_elements_fence = `
+            <div class="table_result__head">Дополнительные элементы ограждения</div>
+            <div class="table_result__content">
+        
+                <div class="table_result__row">
+                    <div class="table_result__label">Ширина ${data.Additional_elements_fence.active_parametrs.type_filling.type }</div>
+                    <div class="table_result__value">
+                        ${data.Additional_elements_fence.active_parametrs.type_filling.width}
+                    </div>
+                </div>
+                <div class="table_result__row">
+                    <div class="table_result__label">L насадка</div>
+                    <div class="table_result__value">
+                        ${data.Additional_elements_fence.active_parametrs.L_nasadca}
+                    </div>
+                </div>
+                <div class="table_result__row">
+                    <div class="table_result__label">Цвет ограждения</div>
+                    <div class="table_result__value">
+                        ${data.Additional_elements_fence.colors[data.Additional_elements_fence.active_parametrs.collor_active].title}
+                    </div>
+                </div>
+
+            </div>
+        `;
+    }
+    let Wickets = '';
+    if(data.Wickets.active_parametrs.visited_page) {
+        let Wickets_active_params = data.Wickets.active_parametrs;
+        if(Wickets_active_params.smart == 0 && Wickets_active_params.bars == 0 && Wickets_active_params.fance == 0) {}
+        else {
+            // если калитка выбрана то вывожу какая
+            function wickets_active_params() {
+                let active_params = data.Wickets.active_parametrs;
+                let string ='';
+                if(active_params.smart != 0) {
+                    string += `
+                        <div class="table_result__row">
+                            <div class="table_result__label">Количество калиток SMART</div>
+                            <div class="table_result__value">
+                                ${active_params.smart}
+                            </div>
+                        </div>
+                        <div class="table_result__row">
+                            <div class="table_result__label">Ширина проёма SMART</div>
+                            <div class="table_result__value">
+                                ${data.Wickets.opening_width_smart.values[active_params.opening_width_smart]} мм
+                            </div>
+                        </div>
+                    `;
+                }
+                if(active_params.fance != 0) {
+                    string += `
+                        <div class="table_result__row">
+                            <div class="table_result__label">Количество калиток FANCE</div>
+                            <div class="table_result__value">
+                                ${active_params.fance}
+                            </div>
+                        </div>
+                        <div class="table_result__row">
+                            <div class="table_result__label">Ширина проёма FANCE</div>
+                            <div class="table_result__value">
+                                ${data.Wickets.opening_width_fance.values[active_params.opening_width_fance]}  мм
+                            </div>
+                        </div>
+
+                    `;
+                }
+                if(active_params.bars != 0) {
+                    string += `
+                        <div class="table_result__row">
+                            <div class="table_result__label">Количество калиток BARS</div>
+                            <div class="table_result__value">
+                                ${active_params.bars}
+                            </div>
+                        </div>
+                        <div class="table_result__row">
+                            <div class="table_result__label">Ширина проёма BARS</div>
+                            <div class="table_result__value">
+                                ${data.Wickets.opening_width_bars.values[active_params.opening_width_bars]} мм
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return string;
+            }
+            Wickets = `
+                <div class="table_result__head">Общие параметры</div>
+                <div class="table_result__content">
+                    ${wickets_active_params()}
+                    <div class="table_result__row">
+                        <div class="table_result__label">Высота калитки</div>
+                        <div class="table_result__value">
+                            ${data.Wickets.height.values[data.Wickets.active_parametrs.height] / 1000}м
+                        </div>
+                    </div>
+                    <div class="table_result__row">
+                        <div class="table_result__label">Цвет</div>
+                        <div class="table_result__value">
+                            ${data.Wickets.colors[data.Wickets.active_parametrs.collor_active].title}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+    }
 
     function gates__params() {
         let active_params = data.Gates.active_parametrs;
@@ -490,23 +502,58 @@ export function get_params(data, _form) {
 
         return string;
     }
-    let Gates = `
-        <div class="table_result__head">Ворота</div>
+    let Gates = '';
+
+    if(data.Gates.active_parametrs.visited_page) {
+        let Gates_active_params = data.Gates.active_parametrs;
+        if(Gates_active_params.swing_smart == 0 && Gates_active_params.swing_bars  == 0 &&  Gates_active_params.swing_fance  == 0 &&  Gates_active_params.sliding_smart  == 0 &&  Gates_active_params.sliding_bars == 0 &&  Gates_active_params.sliding_fance == 0) {
+    
+        } else {
+            Gates = `
+                <div class="table_result__head">Ворота</div>
+                <div class="table_result__content">
+                
+                    ${gates__params()}
+
+                    <div class="table_result__row">
+                        <div class="table_result__label">Высота калитки</div>
+                        <div class="table_result__value">
+                            ${data.Gates.height.values[data.Gates.active_parametrs.height] / 1000}м
+                        </div>
+                    </div>
+
+                    <div class="table_result__row">
+                        <div class="table_result__label">Цвет</div>
+                        <div class="table_result__value">
+                            ${data.Gates.colors[data.Gates.active_parametrs.collor_active].title}
+                        </div>
+                    </div>
+
+                </div>
+            `;
+        }
+    }
+
+    let amountStatistic = `
+        <div class="table_result__head">Общая статистика</div>
         <div class="table_result__content">
-        
-            ${gates__params()}
 
             <div class="table_result__row">
-                <div class="table_result__label">Высота калитки</div>
+                <div class="table_result__label"> Общая цена</div>
                 <div class="table_result__value">
-                    ${data.Gates.height.values[data.Gates.active_parametrs.height] / 1000}м
+                    ${_statistck.amountPrise}
                 </div>
             </div>
-
             <div class="table_result__row">
-                <div class="table_result__label">Цвет</div>
+                <div class="table_result__label"> Цена погонного метра</div>
                 <div class="table_result__value">
-                    ${data.Gates.colors[data.Gates.active_parametrs.collor_active].title}
+                    ${_statistck.running_meter}
+                </div>
+            </div>
+            <div class="table_result__row">
+                <div class="table_result__label">Общий вес</div>
+                <div class="table_result__value">
+                     ${_statistck.weight}
                 </div>
             </div>
 
@@ -516,6 +563,7 @@ export function get_params(data, _form) {
     let table_content = `
         ${call_phone} 
         ${General_parameters} 
+        ${amountStatistic} 
         ${Size_panel} 
         ${version_pillar}
         ${fasteners_fence}

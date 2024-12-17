@@ -35,7 +35,8 @@
     <div 
         
         class="tooltip"  
-        :style="{left: (input_value / (max / 100)) + '%'}" ><span>{{ input_value }}</span></div>
+        :style="{left: (input_value / (max / 100)) + '%'}" ><span>{{ input_value }}</span>
+    </div>
 
 </div>
 </template>

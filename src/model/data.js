@@ -50,6 +50,7 @@ export const _data_calc = { // основные данные
             collor_active: 0,
             size_perimetr: 10,
             height_fance: 1,
+            visited_page: false,
         }
     },
     size_panel: { // Размер панели
@@ -126,6 +127,7 @@ export const _data_calc = { // основные данные
             collor_active: 0,
             section_size_value: 0, // длина секции
             height_fance: 0,
+            visited_page: false,
         }
     },
     version_pillar: {// Вариант исполнения столба
@@ -181,6 +183,7 @@ export const _data_calc = { // основные данные
             weight_wall: 0,
             post_cover: true,
             collor_active: 0,
+            visited_page: false,
         }
     },
     fasteners_fence: { // крепежи забора
@@ -208,6 +211,7 @@ export const _data_calc = { // основные данные
             fasteners_type_fances: 0,
             fixing_panel_post: 0,
             collor_active: 0,
+            visited_page: false,
         }
     },
     Additional_elements_fence: {// дополнительные элементы ограждения
@@ -219,6 +223,7 @@ export const _data_calc = { // основные данные
             },
             collor_active: 0,
             L_nasadca: 0,
+            visited_page: false,
         },
         type_filling: {
             title: "Тип заполнения",
@@ -253,6 +258,7 @@ export const _data_calc = { // основные данные
 
             // высота
             height: 0,
+            visited_page: false,
         },
         height: {
             
@@ -294,6 +300,7 @@ export const _data_calc = { // основные данные
 
             // высота
             height: 0,
+            visited_page: false,
         },
         height: {
             title: 'Высота (мм.)',
