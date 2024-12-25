@@ -70,13 +70,13 @@
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
                         <div class="statistic__value"><span>
-                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ
                         </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена панели:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>2 007 р</span>.</div>
+                        <div class="statistic__value"><span>2 007 р</span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>

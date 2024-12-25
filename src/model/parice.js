@@ -599,21 +599,44 @@ export const price = {
                 ],
             ],
         ],
-        plastic_plug: [
-            {
-                title: 'Пластиковая заглушка',
-                cost: 20,
+        plastic_plug: {// пластиковая заглушка
+            getPlasticPlug(sechenie, wodth__wall) {
+                try {
+                    return this.variants[sechenie][wodth__wall];
+                } catch (e) {
+                    console.info("Крышка столба, ошибка: ", e);
+                    return 0
+                }
             },
-            {
-                title: 'Пластиковая заглушка',
-                cost: 22,
-            },
-            {
-                title: 'Пластиковая заглушка',
-                cost: 38,
-            },
-        ]
-
+            variants: [
+                [
+                    {
+                        title: 'Пластиковая заглушка',
+                        cost: 20,
+                        weight: 50,
+                    },
+                ],
+                [
+                    {
+                        title: 'Пластиковая заглушка',
+                        cost: 22,
+                        weight: 22,
+                    },
+                    {
+                        title: 'Пластиковая заглушка',
+                        cost: 22,
+                        weight: 25,
+                    },
+                ],
+                [
+                    {
+                        title: 'Пластиковая заглушка',
+                        cost: 38,
+                        weight: 24,
+                    },
+                ]
+            ],
+        },
     },
     kit_bracket_set: {
         title: 'Комплект скоба F24 (4шт.) цинк',

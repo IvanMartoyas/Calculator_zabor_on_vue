@@ -30,7 +30,7 @@ input[type=range]  {
     height: 15px;
     -webkit-appearance: none;
     margin-top: -4px;
-    box-shadow: -200px  0 0 200px  var(--bg2);
+    box-shadow: -200px  0 0 200px  var(--bg3);
 
   }
  input[type=range]::-moz-range-thumb {
@@ -39,7 +39,7 @@ input[type=range]  {
     /* height: 7px; */
     width: 3px;
     border-radius:0px;
-    box-shadow: -200px  0px 0px 200px   var(--bg1);
+    box-shadow: -200px  0px 0px 200px   var(--bg3);
     padding: 0px;
     margin: 0px;
   }

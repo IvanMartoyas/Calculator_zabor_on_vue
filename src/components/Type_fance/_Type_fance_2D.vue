@@ -90,13 +90,15 @@
                         <div class="statistic__valuesTitle">Вес изделия:</div>
                         <div class="statistic__paramDot"></div>
                         <div class="statistic__value"><span>
-                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ.
+                            {{Math.round(Weight.amount / 1000).toLocaleString() }} КГ
                         </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена панели:</div>
                         <div class="statistic__paramDot"></div>
-                        <div class="statistic__value"><span>{{ Price.panel.height[data.general_parameters.active_parametrs.height_fance].cost.toLocaleString() }} Руб</span></div>
+                        <div class="statistic__value"><span>
+                            {{ Math.round(Price.type_fance.variant_2D.getData('cost', data.size_panel.active_parametrs.height_fance, data.size_panel.type_fance[1].params.selected_data.diameter_index)).toLocaleString() }}  Руб
+                        </span></div>
                     </div>
                     <div class="statistic__valuesRow">
                         <div class="statistic__valuesTitle">Цена изделия:</div>

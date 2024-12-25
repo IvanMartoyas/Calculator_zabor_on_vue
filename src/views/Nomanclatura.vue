@@ -36,7 +36,7 @@
                     <div class="table__item table__value">{{ Price.panel.count.toLocaleString() }}</div>
                     <div class="table__item table__weight">
                         <span>
-                            {{ Math.round((Price.panel.count  * Price.type_fance.variant_2D.getData('cost', data.size_panel.active_parametrs.height_fance, data.size_panel.type_fance[1].params.selected_data.diameter_index))) }}
+                            {{ Math.round((Price.panel.count  * Price.type_fance.variant_2D.getData('weight', data.size_panel.active_parametrs.height_fance, data.size_panel.type_fance[1].params.selected_data.diameter_index))) }}
                         </span>
                          Кг
                     </div> 
@@ -67,7 +67,7 @@
                     <div class="table__item table__value">{{ Price.panel.count.toLocaleString() }}</div>
                     <div class="table__item table__weight">
                         <span>
-                            {{ Math.round((Price.panel.count * Price.type_fance.variant_3D.getData('cost', data.size_panel.active_parametrs.height_fance, data.size_panel.type_fance[0].params.selected_data.diameter_index))) }}
+                            {{ Math.round((Price.panel.count * Price.type_fance.variant_3D.getData('weight', data.size_panel.active_parametrs.height_fance, data.size_panel.type_fance[0].params.selected_data.diameter_index))) }}
                         </span>
                         Кг
                     </div> 
@@ -196,18 +196,35 @@
                 </div>
             </div> 
         
-    
             <div class="table__row" v-if="data.version_pillar.active_parametrs.post_cover">
                 <div class="table__item table__title">
-                    {{ Price.post.plastic_plug[data.version_pillar.active_parametrs.sechenie_pillar].title }} 
-                    {{ data.version_pillar.sechenie_pillar.values[data.version_pillar.active_parametrs.sechenie_pillar]}}
-                </div>
-                
-                <div class="table__item table__value">{{ Price.post.plastic_plug[data.version_pillar.active_parametrs.sechenie_pillar].cost.toLocaleString() }} Руб</div>
+                    {{ 
+                        Price.post.plastic_plug.getPlasticPlug(
+                            data.version_pillar.active_parametrs.sechenie_pillar,// сечение
+                            data.version_pillar.active_parametrs.weight_wall,// тольщина
+                        ).title
+                    }} 
+                    {{ 
+                    data.version_pillar.sechenie_pillar.values[data.version_pillar.active_parametrs.sechenie_pillar]
+                    }}
+            </div>
+              
+                <div class="table__item table__value">
+                    {{ 
+                        Price.post.plastic_plug.getPlasticPlug(data.version_pillar.active_parametrs.sechenie_pillar, data.version_pillar.active_parametrs.weight_wall).cost.toLocaleString() 
+                    }} 
+                    Руб</div>
                 <div class="table__item table__value">{{ (Price.panel.count  + 1).toLocaleString() }}</div>
+         
+                <div class="table__item table__weight">
+                    <span>
+                        {{ Math.round((Price.panel.count + 1) * Price.post.plastic_plug.getPlasticPlug(data.version_pillar.active_parametrs.sechenie_pillar, data.version_pillar.active_parametrs.weight_wall).weight) }}
+                    </span> Кг
+                </div>
+
                 <div class="table__item table__value table__price">
                     <span>
-                        {{ Math.round((Price.panel.count + 1) * Price.post.plastic_plug[data.version_pillar.active_parametrs.sechenie_pillar].cost).toLocaleString() }}
+                        {{ Math.round((Price.panel.count + 1) * Price.post.plastic_plug.getPlasticPlug(data.version_pillar.active_parametrs.sechenie_pillar, data.version_pillar.active_parametrs.weight_wall).cost).toLocaleString() }}
                     </span>
                     Руб</div> 
             </div> 
@@ -584,7 +601,7 @@ export default {
         padding: 25px;
     }
     .table__weight {
-        display: none;   
+       display: none;  
     }
     .table__price span {
         margin-right: 5px;
